@@ -1,0 +1,27 @@
+.derecha{
+    float: right;
+    width: 30%;
+    margin-right: 5em;
+}
+.editar{
+    background-color: darkorange;
+    border-color: darkorange;
+    margin-right: 1.5%;
+    float: right;
+}
+.editar:hover{
+    background-color: orange;
+    border-color: orange;
+    margin-right: 1.5%;
+    float: right;
+
+}
+.aclaracion{
+    font-size: 10px;
+    font-style: italic;
+}
+
+.eliminar{
+  margin-right: 1.5%;
+  float: right;
+}

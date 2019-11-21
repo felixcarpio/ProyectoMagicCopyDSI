@@ -1,0 +1,4 @@
+.nav_difuminado{
+  background: rgb(0,34,74);
+  background: linear-gradient(121deg, rgba(0,34,74,1) 0%, rgba(11,5,87,1) 0%, rgba(13,183,214,1) 40%, rgba(224,225,40,1) 77%, rgba(211,13,214,1) 93%);
+  }

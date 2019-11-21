@@ -1,0 +1,310 @@
+body{
+    background-color: rgba(0,0,0,0.24)!important;
+}
+.cotizacion{
+  max-width: 80%;
+  margin-left: 10%;
+  position: relative;
+  display: block;
+}
+.izquierda{
+  float: left;
+  width: 48%;
+}
+.derecha {
+  float: right;
+  width: 48%;
+}
+.principal{
+  color: #ffffff;
+  text-align: center;
+  top: 10px;
+  font-weight: bold;
+}
+#dropdown01{
+  width: 50px;
+}
+.container{
+
+  padding-bottom: 20px;
+  max-width: 100%!important;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+.ocultar{
+  display: none;
+}
+hr{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: 2px solid;
+}
+.alto{
+  height: 55px!important;
+}
+#descripciontextarea{
+  height: 200px;
+  border: 1px solid #ced4da;
+}
+.centrado{
+  display: inline-block;
+  margin: 0 auto;
+  width: 100%;
+}
+.btn-cotizacion{
+  background-color: white;
+  color: black;
+  border-color: white;
+  width: 200px;
+  font-size: 20px;
+}
+.center{
+  width: 50%;
+  margin: 0 auto;
+}
+/* --------HEADER DE LA PAGINA DE PUBLICIDAD------------ */
+div.hero{
+    background-image: url(/images/logo1.jpg);
+    height: 60vh;
+    background-position: top center;
+    background-size: cover;
+}
+nav.redes-sociales {
+    text-align: center;
+}
+nav.redes-sociales a {
+    color: #ffffff;
+    font-size: 2em;
+    margin: 7px;
+}
+.icono-carrito{
+  color: #ffffff;
+  font-size: 3em;
+  margin: 20px;
+  text-align: left;
+}
+.icono{
+  float: right;
+}
+
+/* ------------------NAVBAR------------------------- */
+.nav-link{
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+    text-decoration: none;
+    transition: all .6s ease;
+    width: 100%;
+    display: block;
+}
+.navbar-brand{
+  width: 20%;
+}
+
+/* ------------------PROMOCIONES DESLIZANTES ------------ */
+#wrapper{
+  width: 100%;
+  margin: 0 auto;
+}
+.promo{
+  width: 95%;
+  height: 300px;
+  margin: auto;
+}
+.logo{
+  width: 20%;
+  float: left;
+}
+.menu-item{
+  width: 75%;
+}
+.slick-dots{
+  list-style: none;
+}
+.menu-area{
+  overflow: hidden;
+}
+.slick-dots li{
+  display: inline-block;
+}
+.slick-dots li button{
+  display: inline-block;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000000;
+  border-radius: 10px;
+  margin: 10px;
+}
+.contenedor-destacados{
+  background-color: white;
+  width: 100%;
+}
+.titulo-destacado{
+  color: rgba(0,0,0,0.24);
+}
+.imagen{
+  width: 300px;
+  height: 300px;
+  background-size: contain;
+  overflow: hidden;
+  border-radius: 10px;
+}
+@media only screen and (max-width:500px){
+    .imagen{
+        width: 150px;
+        height: 150px;
+    }
+    .destacado{
+      float: none;
+      margin-left: auto;
+      text-align: center;
+    }
+}
+
+@media only screen and (max-width:950px){
+    .imagen{
+        width: 200px;
+        height: 200px;
+    }
+    .destacado{
+      float: none;
+      margin-left: auto;
+      text-align: center;
+    }
+}
+
+
+.nombre-destacados{
+  font-weight: bold;
+}
+@media only screen and (min-width:768px){
+    div.destacado{
+       float: left;
+       width: 33.3%;
+    }
+}
+div.destacado{
+    padding: 5px;
+}
+
+/* ------------------ ESTILOS DE PRODUCTOS RESERVA ---------------  */
+
+.productoStore{
+  background-color: #ffffff;
+  float: left;
+  width: 46%;
+  margin: 20px!important;
+  padding: 5px;
+  border: #000000 1px solid;
+}
+.headerProducto{
+  height: 230px;
+}
+.footerProducto{
+  height: 105px;
+}
+.eliminado{
+  text-decoration: line-through red;
+}
+.imagenOferta{
+  width: 100px;
+  height: 100px;
+}
+.footerDerecha{
+  float: right;
+}
+@media only screen and (max-width:1200px){
+    .productoStore{
+        width: 44%;
+        margin: 15px!important;
+    }
+    .headerProducto{
+      height: 250px;
+    }
+
+}
+
+@media only screen and (max-width:1000px){
+    .productoStore{
+        width: 45%;
+        margin: 15px!important;
+    }
+    .headerProducto{
+      height: 300px;
+    }
+    .imagenProducto{
+      width: 100%;
+      float: none;
+      margin-right: auto!important;
+      margin-left: auto!important;
+      text-align: center;
+    }
+    .footerProducto{
+      height: 120px;
+    }
+    .imagenOferta{
+      width: 70px;
+      height: 70px;
+    }
+}
+
+@media only screen and (max-width:800px){
+    .productoStore{
+        width: 100%;
+        float: none;
+        margin-right: auto!important;
+        margin-left: auto!important;
+        text-align: center;
+    }
+    .headerProducto{
+      height: 280px;
+    }
+    .footerProducto{
+      height: 150px;
+    }
+}
+.imagenPublicidad{
+  width: 150px;
+  height: 150px;
+}
+.descripcionProducto{
+  
+}
+.imagenProducto{
+  float: left;
+}
+.cantidad{
+  width: 40px;
+}
+@media only screen and (max-width:500px){
+    .imagenPublicidad{
+      width: 100px;
+      height: 100px;
+    }
+    .imagenProducto{
+      float: none;
+    }
+}
+.nombreProducto{
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.3em;
+}
+@media only screen and (max-width:450px){
+    .imagenOferta{
+      width: 50px;
+      height: 50px;
+    }
+    .footerProducto{
+      height: 150px;
+    }
+}
+.botonCarrito{
+  border-radius: 2px;
+  border: 1px #aaa solid;
+}
+#cargando {
+    display: none;
+}

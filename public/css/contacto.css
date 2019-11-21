@@ -1,0 +1,24 @@
+
+  .scroll{
+    width: 466px;
+    height: 120px;
+    overflow: scroll;
+  }
+  
+  .izquierda{
+    text-align: left;
+    padding-left: 3em;
+  }
+  .derecha{
+    float: right;
+    padding-top: 3em;
+  }
+  .boton{
+    padding: 2em;
+  }
+  .derecha{
+    float: right;
+    width: 30%;
+    margin-right: 5em;
+}
+  

@@ -1,0 +1,46 @@
+.datos-cliente{
+  display: inline-block;
+  width: 45%;
+  margin: 0.2%;
+  margin-right: 2%;
+}
+.ingresar-entidad{
+  width: 15%;
+}
+#entity{
+  margin-right: 1%;
+  width: 65%;
+}
+.indicadores{
+  min-width: 30%;
+  max-width: 30%;
+  margin-right: 1%;
+  margin-left: 3%;
+}
+.datosVenta{
+  width: 85%;
+}
+#contenedorComprador{
+  margin-left: 5%;
+}
+.indicadores-cliente{
+  width:50%;
+  margin-right: 1%;
+  margin-left: 5%;
+}
+.datosCliente{
+  width:65%;
+  margin-right: 15%;
+  margin-left: 3%;
+}
+#labelTotal{
+  margin-right: 4%;
+}
+#entidad{
+  width:65%;
+  margin-left: 3%;
+}
+#labelCorrelativo{
+  width:70%;
+  margin-left: 3%;
+}

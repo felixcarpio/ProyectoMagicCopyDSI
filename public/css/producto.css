@@ -1,0 +1,28 @@
+.imagen{
+  width: 370px;
+}
+.tdimg{
+  font-size: 100px;
+}
+/* .paginate_button{
+  padding: 10px;
+  border-color: blue;
+  border: 1px solid #dee2e6;
+  border-radius: 0.078em;
+} */
+.scroll{
+  width: 466px;
+  height: 120px;
+  overflow: scroll;
+}
+.centrado{
+  text-align: left;
+  padding-left: 3em;
+}
+.derecha{
+  float: right;
+  padding-top: 3em;
+}
+.boton{
+  padding: 2em;
+}

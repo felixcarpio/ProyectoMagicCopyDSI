@@ -1,0 +1,129 @@
+/* Generales */
+
+.titulo{
+  text-align: center;
+  font-size: 3.5em;
+  font-weight: bold;
+}
+
+.principal {
+    font-size: 3.5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.selectProducto{
+  width:25%; right:60%;
+  margin: auto;
+}
+
+.selectMes{
+  width: 20%; left:40%;
+  margin: auto;
+}
+
+.selectAnio{
+  width: 20%; left: 65;
+  margin: auto;
+}
+
+/*
+ botones
+ */
+ .btnposi{
+     position:absolute;
+     width:10%; left:75%;
+     text-align:center;
+     margin:auto;
+ }
+
+ .btnFiltrar{
+  position:absolute;
+  width:10%; left:64%;
+  text-align:center;
+  margin:auto;
+ }
+
+ .btnBorrar{
+  position:absolute;
+  width:10%; left:75%;
+  text-align:center;
+  margin:auto;
+  border-color: #dbdbdb;
+ }
+
+
+.btnposic{
+    position:absolute;
+    width:11%; left:70%;
+    text-align:center;
+    margin:auto;
+}
+
+.btnposicc{
+    position:absolute;
+    width:11%; left:77%;
+    text-align:center;
+    margin:auto;
+}
+
+.btnposici{
+    position:absolute;
+    width:11%; left:75%;
+    text-align:center;
+    margin:auto;
+}
+
+.btnmes{
+  position: absolute;
+  width: 11%;
+  left: 60%;
+  text-align: center;
+  margin: auto;
+}
+
+.po{
+    position:absolute;
+    left:72%;
+    text-align:center;
+    margin:auto;
+}
+
+.remove{
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}
+
+.remove:hover{
+  color: rgb(142, 7, 11);
+  font-size: 20px;
+  text-align: center;
+}
+
+.btn-success{
+  background-color: #87b847;
+  border-color: #87b847;
+}
+
+.ingresar:hover{
+  background-color: rgb(140, 177, 88);
+  border-color: rgb(140, 177, 88);
+}
+
+.btn-recepcion{
+  background-color:  rgb(59, 164, 98);
+  border-color:  rgb(59, 164, 98);
+}
+
+.addRow{
+  color: #87b847;
+  font-size: 20px;
+  text-align: center;
+}
+
+.addRow:hover{
+  color: rgb(59, 164, 98);
+  font-size: 20px;
+  text-align: center;
+}
