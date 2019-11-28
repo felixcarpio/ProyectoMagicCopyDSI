@@ -375,11 +375,13 @@ class SalidaController extends Controller
       'cantidad' => $request->cantidad,
       'precio' => $request->precio,
       'totalProducto' => $request->totalProducto,
+      'sumas' => $request->total,
+      'iva' => round(($request->total*0.13), 2),
+      'subtotal' => $request->total_iva,
     ];
-    // dd($data['producto'][0]);
 
-    return view('salidas.facturaConsumidorFinal', compact('data'));
-
+    $pdf = PDF::loadView('salidas.facturaConsumidorFinal', $data);
+    return $pdf->download('factura-consumidor-final.pdf');
   }
 
   public function storeVenta(Request $request)

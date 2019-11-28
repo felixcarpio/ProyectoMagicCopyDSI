@@ -190,8 +190,6 @@
     <input type="text" class="ocultar" name="nombre_comprador" id="nombre_comprador">`
     $('#contenedorComprador').append(codigoFactura)
     const nombre = document.getElementById('nombre_comprador').value = datos.nombre_comprador
-    var impresionFactura = document.getElementById('btn-factura'); //or grab it by tagname etc
-    impresionFactura.href = "/facturaSencilla"
   } else if (datos.factura == "Crédito fiscal"){
     codigoFactura = ` <b> Datos del cliente </b>
     <br>
