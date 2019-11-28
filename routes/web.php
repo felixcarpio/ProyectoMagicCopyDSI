@@ -95,6 +95,9 @@ Route::post('/salida/verificar', 'SalidaController@verificarSalida');
 Route::post('/salida/guardar', 'SalidaController@store');
 Route::resource('/salida', 'SalidaController');
 Route::get('/versalidas/{pedido}','SalidaController@show')->name('salida.ver');
+Route::get('/facturaSencilla','SalidaController@generarFacturaSencilla')->name('facturaSencilla'); 
+Route::get('/facturaConsumidorFinal','SalidaController@generarFacturaConsumidorFinal')->name('facturaConsumidorFinal'); 
+
 
 
 // -------------- RUTAS MAQUINAS -------------
@@ -119,3 +122,5 @@ Route::put('/contac/ingresar', 'ContactoController@store');
 Route::get('/contac/{contacto}','ContactoController@show')->name('contacto.ver');
 Route::get('/contac/editar/{contacto}', 'ContactoController@actualizar')->name('contacto.actualizar');
 Route::put('/contac/editar/{contacto}', 'ContactoController@update')->name('contacto.update');
+
+

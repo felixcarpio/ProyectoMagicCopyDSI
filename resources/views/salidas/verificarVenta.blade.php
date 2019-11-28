@@ -22,6 +22,9 @@
   <b class="indicadores">Total:</b>
   <label class="datosVenta" id="labelTotal"></label>
   <input type="text" class="ocultar" name="total" id="total">
+  <b class="indicadores">Total con IVA:</b>
+  <label class="datosVenta" id="labelTotalIva"></label>
+  <input type="text" class="ocultar" name="total_iva" id="total_iva">
   <b class="indicadores">Tipo de factura:</b>
   <label class="" id="labelFactura"></label>
   <input type="text" class="ocultar" name="factura" id="factura">
@@ -41,7 +44,9 @@
         <tbody id="tablebody">
         </tbody>
 </table>
-<button type="submit" class="btn btn-success">Datos correctos</button>
+<button type="submit" name="action" value="generarFactura" class="btn btn-success" >Generar Factura</button>
+<button type="submit" name="action" value="guardar" class="btn btn-success">Confirmar datos</button>
+<!-- <button type="submit" class="btn btn-success">Datos correctos</button> -->
     <a href="/salida/venta" class="btn btn-danger">Regresar</a>
 </form>
 
@@ -131,6 +136,8 @@
     var totalProd = document.getElementById(`totalProducto${i}`).value = precioActual.toFixed(2)
   }
 
+  var totalIva = totalVenta * 1.13
+
   const labelTipo = document.getElementById('labelTipo').textContent = tipoSalida[0].nombre
   const tipo = document.getElementById('tipo').value = tipoSalida[0].nombre
   const labelCorrelativo = document.getElementById('labelCorrelativo').textContent = datos.correlativo_factura
@@ -139,6 +146,8 @@
   const fecha = document.getElementById('fecha').value = datos.fecha_emision
   const labelTotal = document.getElementById('labelTotal').textContent = (totalVenta).toFixed(2)
   const total = document.getElementById('total').value = (totalVenta).toFixed(2)
+  const labelTotalIva = document.getElementById('labelTotalIva').textContent = (totalIva).toFixed(2)
+  const totalConIva = document.getElementById('total_iva').value = (totalIva).toFixed(2)
   const labelFactura = document.getElementById('labelFactura').textContent = datos.factura
   const factura = document.getElementById('factura').value = datos.factura
 
@@ -181,6 +190,8 @@
     <input type="text" class="ocultar" name="nombre_comprador" id="nombre_comprador">`
     $('#contenedorComprador').append(codigoFactura)
     const nombre = document.getElementById('nombre_comprador').value = datos.nombre_comprador
+    var impresionFactura = document.getElementById('btn-factura'); //or grab it by tagname etc
+    impresionFactura.href = "/facturaSencilla"
   } else if (datos.factura == "Crédito fiscal"){
     codigoFactura = ` <b> Datos del cliente </b>
     <br>
