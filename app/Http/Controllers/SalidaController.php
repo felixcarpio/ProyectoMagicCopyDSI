@@ -384,6 +384,45 @@ class SalidaController extends Controller
     return $pdf->download('factura-consumidor-final.pdf');
   }
 
+  public function generarCreditoFiscal(Request $request)
+  {
+    $fecha = self::obtenerFechaActual();
+
+    $entidad = DB::table('entidades')
+    ->where('nombre', $request->entidad)
+    ->get()
+    ->toArray();
+
+    // dd($entidad[0]);
+
+    // strlen($entidad[0]->direccion) > 16 ? $direccion = substr($entidad[0]->direccion, 0, 17) : $direccion = $entidad[0]->direccion;
+
+    $data = [
+      'dia' => $fecha['day'],
+      'mes' => $fecha['month'],
+      'anio' => $fecha['year'],
+      'nombre' => $request->nombre_comprador,
+      'dui' => $request->dui,
+      'direccion' => $request->direccion,
+      'cuenta' => $request->cuenta,
+      'producto' => $request->producto,
+      'cantidad' => $request->cantidad,
+      'precio' => $request->precio,
+      'totalProducto' => $request->totalProducto,
+      'sumas' => $request->total,
+      'iva' => round(($request->total*0.13), 2),
+      'subtotal' => $request->total_iva,
+      'nombre' => $entidad[0]->nombre,
+      'direccion' => strlen($entidad[0]->direccion) > 16 ? $direccion = substr($entidad[0]->direccion, 0, 17) : $direccion = $entidad[0]->direccion,
+      'nit' => $entidad[0]->nit,
+      'numero_registro' => $entidad[0]->numero_registro,
+      'giro' => $entidad[0]->giro,
+    ];
+
+    $pdf = PDF::loadView('salidas.creditoFiscal', $data);
+    return $pdf->download('credito-fiscal.pdf');
+  }
+
   public function storeVenta(Request $request)
   {
     switch ($request->input('action')) {
@@ -391,9 +430,10 @@ class SalidaController extends Controller
         if ($request->factura == "Sencilla") {
           return redirect()->route('facturaSencilla', [$request]);
         } elseif ($request->factura == "Consumidor final") { 
-          // dd($request);
           return redirect()->route('facturaConsumidorFinal', [$request]);
-        } elseif ($request->factura == "Crédito fiscal") { }
+        } elseif ($request->factura == "Crédito fiscal") {
+          return redirect()->route('creditoFiscal', [$request]);
+         }
 
         break;
       case 'guardar':

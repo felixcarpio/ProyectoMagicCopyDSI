@@ -97,6 +97,7 @@ Route::resource('/salida', 'SalidaController');
 Route::get('/versalidas/{pedido}','SalidaController@show')->name('salida.ver');
 Route::get('/facturaSencilla','SalidaController@generarFacturaSencilla')->name('facturaSencilla'); 
 Route::get('/facturaConsumidorFinal','SalidaController@generarFacturaConsumidorFinal')->name('facturaConsumidorFinal'); 
+Route::get('/creditoFiscal','SalidaController@generarCreditoFiscal')->name('creditoFiscal'); 
 
 
 
