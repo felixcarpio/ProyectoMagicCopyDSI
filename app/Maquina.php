@@ -18,8 +18,8 @@ class Maquina extends Model
         return $this->hasMany('App\Ticket');
     }
 
-    public function contactos()
+    public function clientes()
     {
-        return $this->belongsToMany('App\Contacto','contacto_maquina','maquina_id','contacto_id');
+        return $this->belongsToMany('App\Cliente','cliente_maquina','maquina_id','cliente_id');
     }
 }

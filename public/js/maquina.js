@@ -37,7 +37,7 @@ table.on('click','.edit', function () {
     var data = table.row($tr).data();
     
     
-    $('#contacto_id').val(data[1]);
+    $('#cliente_id').val(data[1]);
     $('#categoria_id').val(data[2]);
     $('#marca').val(data[3]);
     $('#modelo').val(data[4]);
