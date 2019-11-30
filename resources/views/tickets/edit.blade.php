@@ -1,6 +1,6 @@
 @extends('layouts.appticket')
 @section('nombre')
-Ingresar Ticket
+Editar Ticket
 @endsection
 @section('links')
 <script src="{{ asset('js/jquery-3.3.1.min.js')}}"></script>
@@ -26,7 +26,7 @@ Ingresar Ticket
         <div class="form-group">
             <label class="col-form-label">Estado <span style="color:red">*</span></label>
             <select class="custom-select" name="estado">
-                <option selected="">{{$ticket->estado}}</option>
+                <option disabled selected>{{$ticket->estado}}</option>
                 <option value="Pendiente Revision">Pendiente Revisión</option>
                 <option value="Cotizacion">Cotización</option>
                 <option value="Pendiente Reparacion">Pendiente Reparación</option>
@@ -71,7 +71,7 @@ Ingresar Ticket
             <input type="number" max="9999" class="form-control" name="reparacionpc" placeholder="0.00" min="0" step="0.01" value="{{$ticket->reparacionpc}}">
         </div>
         <br>
-        <button type="submit" class="btn btn-success guardar">Ingresar Ticket</button>
+        <button type="submit" class="btn btn-success guardar">Actualizar Ticket</button>
         <a href="/tickets" class="btn btn-danger">Cancelar</a>
     </form><br>
 </div>

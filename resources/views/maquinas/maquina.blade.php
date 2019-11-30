@@ -21,24 +21,17 @@
 
                     <div class="form-group">
 
-                   <!-- <label class="text-left">Contactos</label>
-    <select name="contacto_id">
-          <option value="">Contactos</option>
-          @foreach ($contactos as $contacto)
-              <option value="{{ $contacto->id }}">{{ $contacto->nombre }}</option>
-          @endforeach
-    </select>-->
 
             
-<label>Contactos <span style="color:red">*</span></label>
-                      <select class="custom-select" name="contacto_id">
-          <option disabled selected>Lista de Contactos</option>
-          @if($contactos)
-            @foreach ($contactos as $contacto)
-              <option value="{{ $contacto->id }}"> {{ $contacto->nombre }} </option>
+<label>Clientes <span style="color:red">*</span></label>
+                      <select class="custom-select" name="cliente_id">
+          <option disabled selected>Lista de Clientes</option>
+          @if($clientes)
+            @foreach ($clientes as $cliente)
+              <option value="{{ $cliente->id }}"> {{ $cliente->nombre }} </option>
             @endforeach
           @else
-            <option>No existen Contacto</option>
+            <option>No existen Clientes</option>
           @endif
         </select>
 
@@ -96,15 +89,15 @@
                     @csrf
                     <div class="form-group">
 
-                    <label>Contactos <span style="color:red">*</span></label>
-                      <select class="custom-select" name="contacto_id" id="contacto_id[]">
-          <option disabled selected>Lista de Contactos</option>
-          @if($contactos)
-            @foreach ($contactos as $contacto)
-              <option value="{{ $contacto->id }}"> {{ $contacto->nombre }} </option>
+                    <label>Clientes <span style="color:red">*</span></label>
+                      <select class="custom-select" name="cliente_id" id="cliente_id[]">
+          <option disabled selected>Lista de Clientes</option>
+          @if($clientes)
+            @foreach ($clientes as $cliente)
+              <option value="{{ $cliente->id }}"> {{ $cliente->nombre }} </option>
             @endforeach
           @else
-            <option>No existen Contacto</option>
+            <option>No existen Clientes</option>
           @endif
         </select>
 
@@ -146,10 +139,10 @@
             </div>
             </div>   
 
-<h1 class="titulo"> Listado Máquina </h1>
+<h1 class="titulo"> Listado Máquinas </h1>
     <br>
 
-    <input type="text" id="buscar" class="buscador sombra" placeholder="Buscar Contacto...">
+    <input type="text" id="buscar" class="buscador sombra" placeholder="Buscar Cliente...">
 
 <button type="button" class="btn btn-success ingresar" data-toggle="modal" data-target="#exampleModal">
             Ingresar Máquina
@@ -168,7 +161,7 @@
     <thead>
       <tr>
         <th scope="col" class="colorth ocultar">ID</th>
-        <th scope="col" class="colorth">Contacto</th>
+        <th scope="col" class="colorth">Cliente</th>
         <th scope="col" class="colorth">Categoría</th>
         <th scope="col" class="colorth">Marca</th>
         <th scope="col" class="colorth">Modelo</th>

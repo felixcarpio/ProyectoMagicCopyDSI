@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Maquina;
 use App\Ticket;
 use App\Categoria;
-use App\Contacto;
+use App\Cliente;
 use Carbon\Carbon;
 
 class TicketController extends Controller
@@ -21,15 +21,14 @@ class TicketController extends Controller
     {
         $maquinas = Maquina::all();
         $categorias = Categoria::all();
-        $contactos = Contacto::all();
+        $clientes = Cliente::all();
         $tickets = DB::table('categorias')
         ->join('maquinas', 'maquinas.categoria_id', 'categorias.id')
         ->join('tickets','tickets.maquina_id','maquinas.id')
         ->select('tickets.id', 'tickets.codigo', 'tickets.estado', 'tickets.fecha_inicio', 'tickets.fecha_fin', 
         'tickets.total', 'tickets.comentario', 'maquinas.serie', 'categorias.nombre' )
         ->get();
-
-        return view('tickets.index',compact('tickets','maquinas','categorias','contactos'));
+        return view('tickets.index',compact('tickets','maquinas','categorias','clientes'));
     }
 
     /**

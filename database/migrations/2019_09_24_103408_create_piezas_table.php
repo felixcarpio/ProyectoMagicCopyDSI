@@ -16,8 +16,8 @@ class CreatePiezasTable extends Migration
         Schema::create('piezas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            $table->string('descripcion');
             $table->double('precio_unitario');
+            $table->double('precio_venta');
             $table->integer('cantidad');
             $table->double('subtotal');
             $table->integer('ticket_id')->unsigned();

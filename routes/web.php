@@ -111,8 +111,11 @@ Route::resource('/telefono','TelefonoController');
 Route::resource('tickets','TicketController');
 
 
-// ------------- RUTAS PIEZAS ----------------
+// ------------- RUTAS PIEZAS -----------------
 Route::resource('piezas','PiezaController');
+
+// ------------- RUTAS CLIENTES -----------------
+Route::resource('clientes','ClienteController');
 
 Route::get('/contac/ingresar', 'ContactoController@ingresar')->name('contacto.ingresarc');
 Route::put('/contac/ingresar', 'ContactoController@store');

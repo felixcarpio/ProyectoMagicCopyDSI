@@ -31,9 +31,4 @@ class Ticket extends Model
     {
         return $this->hasMany('App\Pieza');
     }
-
-    public function servicios()
-    {
-        return $this->belongsToMany('App\Servicio');
-    }
 }

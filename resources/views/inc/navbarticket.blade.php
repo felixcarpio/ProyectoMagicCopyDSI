@@ -15,13 +15,13 @@
             @auth
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('tickets.index')}}">Ticket<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{{route('tickets.index')}}">Tickets<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('contacto.index')}}">Contactos</a>
+                  <a class="nav-link" href="{{route('clientes.index')}}">Clientes</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('maquina.index')}}">Máquina</a>
+                  <a class="nav-link" href="{{route('maquina.index')}}">Máquinas</a>
                 </li>
               </ul>
             @endauth

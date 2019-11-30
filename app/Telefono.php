@@ -8,8 +8,8 @@ class Telefono extends Model
 {
     protected $table = 'telefonos';
 
-    public function contacto()
+    public function cliente()
     {
-            return $this->belongsTo('App\Contacto')->withPivot('numero')->withTimeStamps();
+            return $this->belongsTo('App\Cliente')->withPivot('numero')->withTimeStamps();
     }   
 }

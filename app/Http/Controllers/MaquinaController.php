@@ -5,7 +5,7 @@ use App\Maquina;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Categoria;
-use App\Contacto;
+use App\Cliente;
 
 class MaquinaController extends Controller
 {
@@ -18,18 +18,18 @@ class MaquinaController extends Controller
     {
         $categorias = Categoria::all();
         $maquinas = Maquina::all();
-        $contactos = Contacto::all();
+        $clientes = Cliente::all();
 
 
-      $maquinaContacto = DB::table('contacto_maquina')
-      ->join('contactos', 'contacto_maquina.contacto_id', 'contactos.id')
-      ->join('maquinas', 'contacto_maquina.maquina_id', 'maquinas.id')
+      $maquinaContacto = DB::table('cliente_maquina')
+      ->join('clientes', 'cliente_maquina.cliente_id', 'clientes.id')
+      ->join('maquinas', 'cliente_maquina.maquina_id', 'maquinas.id')
       ->join('categorias','maquinas.categoria_id','categorias.id')
-      ->select('maquinas.id', 'contactos.nombre AS con_nombre', 'categorias.nombre', 'maquinas.marca', 'maquinas.modelo', 
+      ->select('maquinas.id', 'clientes.nombre AS con_nombre', 'categorias.nombre', 'maquinas.marca', 'maquinas.modelo', 
       'maquinas.serie', 'maquinas.contador', 'maquinas.descripcion')
       ->get();
         
-        return view('maquinas.maquina')->with('contactos',$contactos)->with('categorias',$categorias)->with('maquinas',$maquinas)->with('maquinaContacto',$maquinaContacto);
+        return view('maquinas.maquina')->with('clientes',$clientes)->with('categorias',$categorias)->with('maquinas',$maquinas)->with('maquinaContacto',$maquinaContacto);
     
     }
 
@@ -53,7 +53,7 @@ class MaquinaController extends Controller
     {
         $this->validate($request,
             [
-                'contacto_id' => 'required',
+                'cliente_id' => 'required',
                 'categoria_id' => 'required',
                 'marca' => 'required',
                 'modelo' => 'required',
@@ -65,7 +65,7 @@ class MaquinaController extends Controller
 
             //aqui se hicieron cambion para contacto maquia
         $maquina = new Maquina;
-        $contacto = new Contacto;
+        $cliente = new Cliente;
 
         $maquina->categoria_id = $request->input(('categoria_id'));
         $maquina->marca = $request->input(('marca'));
@@ -75,7 +75,7 @@ class MaquinaController extends Controller
         $maquina->descripcion = $request->input(('descripcion'));
         $maquina->save();
 
-        $maquina->contactos()->attach($request->get('contacto_id'));
+        $maquina->clientes()->attach($request->get('cliente_id'));
         return redirect()->route('maquina.index')->with('success','La nueva máquina se ha guardado con éxito');
         
     }
@@ -100,15 +100,15 @@ class MaquinaController extends Controller
 
         $maquinaContacto = DB::table('categorias')
       ->join('maquinas', 'maquinas.categoria_id', 'categorias.id')
-      ->join('contacto_maquina','maquinas.id','contacto_maquina.maquina_id')
-      ->join('contactos', 'contacto_maquina.contacto_id', 'contactos.id')
-      ->select('categorias.nombre as catnombre', 'maquinas.marca', 'maquinas.modelo', 'maquinas.contador', 'maquinas.serie', 'contactos.nombre as connombre', 'contactos.apellido', 'contactos.correo', 'contactos.dui', 'contactos.direccion')
+      ->join('cliente_maquina','maquinas.id','cliente_maquina.maquina_id')
+      ->join('clientes', 'cliente_maquina.cliente_id', 'clientes.id')
+      ->select('categorias.nombre as catnombre', 'maquinas.marca', 'maquinas.modelo', 'maquinas.contador', 'maquinas.serie', 'clientes.nombre as connombre', 'clientes.apellido', 'clientes.correo', 'clientes.dui', 'clientes.direccion')
       ->where('maquinas.id', $id)
       ->get();
 
         $maquinas=Maquina::find($id);
         //$categorias = Categoria::all();
-        return view('maquinas.visualizar',compact('maquinaContacto', 'maquinas','contactos','categorias'));
+        return view('maquinas.visualizar',compact('maquinaContacto', 'maquinas','clientes','categorias'));
         //,compact('maquinaContacto', 'maquinas'));
     }
 
@@ -134,7 +134,7 @@ class MaquinaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'contacto_id' => 'required',
+            'cliente_id' => 'required',
             'categoria_id' => 'required',
             'marca' => 'required',
             'modelo' => 'required',
@@ -153,9 +153,10 @@ class MaquinaController extends Controller
         $maquina->contador = $request->input('contador');
         $maquina->serie = $request->input('serie');
         $maquina->descripcion = $request->input('descripcion');
+        
         $maquina->save();
         
-        $maquina->contactos()->sync($request->get('contacto_id'));
+        $maquina->clientes()->sync($request->get('cliente_id'));
        // maquina::find($id)->update($request->all());
         return redirect()->route('maquina.index')->with('success','La máquina se actualizó exitosamente');
     }
