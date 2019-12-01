@@ -125,6 +125,7 @@
     <input type="text" class="ocultar totalProducto" name="totalProducto[]" id="totalProducto${i}"> 
     </td>
     </tr>`
+    if(datos.cantidad[i] != 0){
     $('#tablebody').append(codigoHtml)
     var prod = document.getElementById(`producto${i}`).value = datosProductos[i][0].nombre
     var cant = document.getElementById(`cantidad${i}`).value = datos.cantidad[i]
@@ -134,6 +135,7 @@
     var prec = document.getElementById(`precio${i}`).value = datosProductos[i][0].precio
     }
     var totalProd = document.getElementById(`totalProducto${i}`).value = precioActual.toFixed(2)
+    }
   }
 
   var totalIva = totalVenta * 1.13

@@ -17,8 +17,11 @@
   <input type="text" class="ocultar" name="fecha_emision" id="fecha">
   <div id="contenedorComentarios"></div>
   <b class="indicadores">Total:</b>
-  <label class="datosVenta" id="labelTotal"></label>
+  <label class="datosVenta" id="labelTotal"></label> 
   <input type="text" class="ocultar" name="total" id="total">
+  <b class="indicadores">Total con IVA:</b>
+  <label class="datosVenta" id="labelTotalIva"></label>
+  <input type="text" class="ocultar" name="total_iva" id="total_iva"> 
   <br> <br>
   <b class="indicadores">Productos </b>
   <br> <br>
@@ -82,6 +85,9 @@
     }
     var totalProd = document.getElementById(`totalProducto${i}`).value = precioActual.toFixed(2)
   }
+  var totalIva = totalVenta * 1.13
+  const labelTotalIva = document.getElementById('labelTotalIva').textContent = (totalIva).toFixed(2)
+  const totalConIva = document.getElementById('total_iva').value = (totalIva).toFixed(2)
 
   const labelTipo = document.getElementById('labelTipo').textContent = tipoSalida[0].nombre
   const tipo = document.getElementById('tipo').value = tipoSalida[0].nombre

@@ -171,7 +171,7 @@ class SalidaController extends Controller
     return $detalle;
   }
 
-  public function nuevaSalida($tipoRequest, $fechaEmision, $total, $comentario)
+  public function nuevaSalida($tipoRequest, $fechaEmision, $total, $comentario, $total_iva)
   {
     $salida = new Salida;
     $tipoQuery = DB::table('tipos')
@@ -182,6 +182,7 @@ class SalidaController extends Controller
     $salida->tipo_id = $tipo;
     $salida->fecha_emision = $fechaEmision;
     $salida->total = (float) $total;
+    $salida->total_iva = (float) $total_iva;
     $salida->comentario = $comentario;
     $salida->save();
     return $salida;
@@ -211,7 +212,7 @@ class SalidaController extends Controller
 
   public function store(Request $request)
   {
-    $salida = self::nuevaSalida($request->tipo, $request->fecha_emision, $request->total, $request->comentario);
+    $salida = self::nuevaSalida($request->tipo, $request->fecha_emision, $request->total, $request->comentario, $request->total_iva);
 
     for ($i = 0; $i < count($request->producto); $i++) {
       $productoQuery = DB::table('productos')
@@ -278,10 +279,10 @@ class SalidaController extends Controller
       }
     }
 
-    return redirect('/salida')->with('success', 'Se ha registrado la salida');
+    return redirect('/versalidas')->with('success', 'Se ha registrado la salida');
   }
 
-  public function nuevaSalidaVenta($tipoRequest, $fechaEmision, $total, $promocion, $correlativo_factura, $tipo_factura, $cantidad_promociones)
+  public function nuevaSalidaVenta($tipoRequest, $fechaEmision, $total, $promocion, $correlativo_factura, $tipo_factura, $cantidad_promociones, $total_iva)
   {
     $salida = new Salida;
     $tipoQuery = DB::table('tipos')
@@ -292,6 +293,7 @@ class SalidaController extends Controller
     $salida->tipo_id = $tipo;
     $salida->fecha_emision = $fechaEmision;
     $salida->total = (float) $total;
+    $salida->total_iva = (float) $total_iva;
     $salida->promocion = $promocion;
     $salida->correlativo_factura = $correlativo_factura;
     $salida->tipo_factura = $tipo_factura;
@@ -356,7 +358,7 @@ class SalidaController extends Controller
     ];
 
     $pdf = PDF::loadView('salidas.facturaSencilla', $data);
-    return $pdf->download('factura-sencilla.pdf');
+    return $pdf->download('factura-sencilla'.$request->correlativo_factura.'.pdf');
   }
 
   public function generarFacturaConsumidorFinal(Request $request)
@@ -381,7 +383,7 @@ class SalidaController extends Controller
     ];
 
     $pdf = PDF::loadView('salidas.facturaConsumidorFinal', $data);
-    return $pdf->download('factura-consumidor-final.pdf');
+    return $pdf->download('factura-consumidor-final'.$request->correlativo_factura.'.pdf');
   }
 
   public function generarCreditoFiscal(Request $request)
@@ -392,10 +394,6 @@ class SalidaController extends Controller
     ->where('nombre', $request->entidad)
     ->get()
     ->toArray();
-
-    // dd($entidad[0]);
-
-    // strlen($entidad[0]->direccion) > 16 ? $direccion = substr($entidad[0]->direccion, 0, 17) : $direccion = $entidad[0]->direccion;
 
     $data = [
       'dia' => $fecha['day'],
@@ -420,7 +418,7 @@ class SalidaController extends Controller
     ];
 
     $pdf = PDF::loadView('salidas.creditoFiscal', $data);
-    return $pdf->download('credito-fiscal.pdf');
+    return $pdf->download('credito-fiscal'.$request->correlativo_factura.'.pdf');
   }
 
   public function storeVenta(Request $request)
@@ -437,7 +435,7 @@ class SalidaController extends Controller
 
         break;
       case 'guardar':
-        $salida = self::nuevaSalidaVenta($request->tipo, $request->fecha_emision, $request->total, $request->promocion, $request->correlativo_factura, $request->factura, $request->cantidad_promociones);
+        $salida = self::nuevaSalidaVenta($request->tipo, $request->fecha_emision, $request->total, $request->promocion, $request->correlativo_factura, $request->factura, $request->cantidad_promociones, $request->total_iva);
         for ($i = 0; $i < count($request->producto); $i++) {
           $productoQuery = DB::table('productos')
             ->select('id', 'existencias')

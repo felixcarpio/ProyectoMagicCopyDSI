@@ -1,6 +1,5 @@
 $(document).ready(function() {
 $(function() {
-    console.log('hola');
 $('.datepicker').datepicker({
 dateFormat: 'dd/mm/yy',
 showButtonPanel: false,

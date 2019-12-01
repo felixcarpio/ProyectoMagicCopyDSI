@@ -21,6 +21,9 @@
                   <a class="nav-link" href="{{route('inventario')}}"> <span style="color:black"> Inventario </span> </a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="/promocion"> <span style="color:black"> Promociones </span> </a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="{{route('users.index')}}"> <span style="color:black"> Usuarios </span> </a>
                 </li>
                 <li class="nav-item">

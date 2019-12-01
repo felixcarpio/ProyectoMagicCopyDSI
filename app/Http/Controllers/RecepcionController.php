@@ -12,8 +12,6 @@ class RecepcionController extends Controller
 {
   public function index()
   {
-    // $pedidos = Pedido::all();
-    // SELECT DISTINCT `pedido_id` FROM `pedido_producto` WHERE `fecha_recibido` is null
     $pedidos = DB::table('pedido_producto')
     ->select('pedido_id')
     ->whereNull('fecha_recibido')
@@ -170,51 +168,6 @@ class RecepcionController extends Controller
     $pedidoRecibido->comentario = $request->comentario;
     $pedidoRecibido->save();
 
-    return redirect('/recepcion')->with('success','El Pedido ha sido recibido');
-  }
-
-  /**
-  * Display the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function show($id)
-  {
-    //
-  }
-
-  /**
-  * Show the form for editing the specified resource.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function edit($id)
-  {
-    //
-  }
-
-  /**
-  * Update the specified resource in storage.
-  *
-  * @param  \Illuminate\Http\Request  $request
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function update(Request $request, $id)
-  {
-    //
-  }
-
-  /**
-  * Remove the specified resource from storage.
-  *
-  * @param  int  $id
-  * @return \Illuminate\Http\Response
-  */
-  public function destroy($id)
-  {
-    //
+    return redirect('/verpedidos')->with('success','El Pedido ha sido recibido');
   }
 }

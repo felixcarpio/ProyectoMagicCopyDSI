@@ -55,11 +55,11 @@ class InventarioController extends Controller
     ->join('salidas', 'salidas.id','detalles.salida_id')
     ->join('pedido_producto', 'pedido_producto.id', 'detalles.pedido_producto_id')
     ->join('productos', 'pedido_producto.producto_id', 'productos.id')
-    ->select('pedido_producto.costo_unitario as costo','salidas.fecha_emision as fecha', 'productos.nombre as nombre', 'detalles.cantidad_vendida as cantidad', 'detalles.existencias')
+    ->select('pedido_producto.costo_unitario as costo','salidas.fecha_emision as fecha', 'productos.nombre as nombre', 'detalles.cantidad_vendida as cantidad', 'detalles.existencias', 'salidas.created_at as fechaCreacion')
     ->whereRaw('detalles.cantidad_vendida <> 0')
     ->get()->toArray();
     $datos = array_merge($pedidos, $salidas);
-    $inventario = self::array_sort($datos, 'fecha', SORT_DESC);
+    $inventario = self::array_sort($datos, 'fechaCreacion', SORT_DESC);
     // dd($inventario);
     return view('inventarios.inventario', compact('inventario'));
   }
