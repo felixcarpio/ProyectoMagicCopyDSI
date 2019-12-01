@@ -11,15 +11,17 @@ use App\Salida;
 use App\Detalle, App\PedidoProducto;
 use App\Comprador;
 use Carbon\Carbon;
+use PDF;
 
 class SalidaController extends Controller
 {
-  public function verSalidas(){
+  public function verSalidas()
+  {
     $salidas = DB::table('salidas')
-    ->join('tipos', 'salidas.tipo_id', 'tipos.id')
-    ->select('salidas.fecha_emision', 'salidas.correlativo_factura', 'salidas.total', 'salidas.tipo_factura', 'tipos.nombre', 'salidas.id')
-    ->orderBy('salidas.fecha_emision', 'desc')
-    ->get();
+      ->join('tipos', 'salidas.tipo_id', 'tipos.id')
+      ->select('salidas.fecha_emision', 'salidas.correlativo_factura', 'salidas.total', 'salidas.tipo_factura', 'tipos.nombre', 'salidas.id')
+      ->orderBy('salidas.fecha_emision', 'desc')
+      ->get();
     return view('salidas.verSalidas', compact('salidas'));
   }
 
@@ -169,7 +171,7 @@ class SalidaController extends Controller
     return $detalle;
   }
 
-  public function nuevaSalida($tipoRequest, $fechaEmision, $total, $comentario)
+  public function nuevaSalida($tipoRequest, $fechaEmision, $total, $comentario, $total_iva)
   {
     $salida = new Salida;
     $tipoQuery = DB::table('tipos')
@@ -180,6 +182,7 @@ class SalidaController extends Controller
     $salida->tipo_id = $tipo;
     $salida->fecha_emision = $fechaEmision;
     $salida->total = (float) $total;
+    $salida->total_iva = (float) $total_iva;
     $salida->comentario = $comentario;
     $salida->save();
     return $salida;
@@ -203,13 +206,13 @@ class SalidaController extends Controller
       ->get()
       ->toArray();
     $detalle->costo = round($query[0]->costo_unitario * $cantidad, 2);
-    $detalle->existencias = $existencias -1;
+    $detalle->existencias = $existencias - 1;
     $detalle->save();
   }
 
   public function store(Request $request)
   {
-    $salida = self::nuevaSalida($request->tipo, $request->fecha_emision, $request->total, $request->comentario);
+    $salida = self::nuevaSalida($request->tipo, $request->fecha_emision, $request->total, $request->comentario, $request->total_iva);
 
     for ($i = 0; $i < count($request->producto); $i++) {
       $productoQuery = DB::table('productos')
@@ -230,10 +233,10 @@ class SalidaController extends Controller
       $cantidadOrdenada = $pedido['cantidad_ordenada'];
       $salidas = $pedido['salidas'];
       $pedido_producto = DB::table('pedido_producto')
-              ->select('id')
-              ->orderBy('updated_at', 'desc')
-              ->orderBy('salidas', 'desc')
-              ->first();
+        ->select('id')
+        ->orderBy('updated_at', 'desc')
+        ->orderBy('salidas', 'desc')
+        ->first();
       for ($j = 0; $j < (int) $unidadesActuales; $j++) {
         if ($salidas < $cantidadOrdenada && (int) $request->cantidad[$i] != 0) {
           $cantidad++;
@@ -242,7 +245,7 @@ class SalidaController extends Controller
           $existencias--;
           $producto->existencias = $existencias;
           $producto->save();
-          self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias+1);
+          self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias + 1);
         } else {
           if ((int) $request->cantidad[$i] != 0) {
             $pedido = (array) self::obtenerPedido($request->producto[$i]);
@@ -270,16 +273,16 @@ class SalidaController extends Controller
               ->whereRaw('pedido_producto.salidas<pedido_producto.cantidad_ordenada')
               ->orderBy('pedido_producto.updated_at', 'desc')
               ->first();
-            self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias+1);
+            self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias + 1);
           }
         }
       }
     }
 
-    return redirect('/salida')->with('success', 'Se ha registrado la salida');
+    return redirect('/versalidas')->with('success', 'Se ha registrado la salida');
   }
 
-  public function nuevaSalidaVenta($tipoRequest, $fechaEmision, $total, $promocion, $correlativo_factura, $tipo_factura, $cantidad_promociones)
+  public function nuevaSalidaVenta($tipoRequest, $fechaEmision, $total, $promocion, $correlativo_factura, $tipo_factura, $cantidad_promociones, $total_iva)
   {
     $salida = new Salida;
     $tipoQuery = DB::table('tipos')
@@ -290,6 +293,7 @@ class SalidaController extends Controller
     $salida->tipo_id = $tipo;
     $salida->fecha_emision = $fechaEmision;
     $salida->total = (float) $total;
+    $salida->total_iva = (float) $total_iva;
     $salida->promocion = $promocion;
     $salida->correlativo_factura = $correlativo_factura;
     $salida->tipo_factura = $tipo_factura;
@@ -334,97 +338,195 @@ class SalidaController extends Controller
     $salida->entidades()->attach($idEntidad[0]->id);
   }
 
-  public function storeVenta(Request $request)
+  public function obtenerFechaActual()
   {
-    // dd($request);
-    $salida = self::nuevaSalidaVenta($request->tipo, $request->fecha_emision, $request->total, $request->promocion, $request->correlativo_factura, $request->factura, $request->cantidad_promociones);
-    for ($i = 0; $i < count($request->producto); $i++) {
-      $productoQuery = DB::table('productos')
-        ->select('id', 'existencias')
-        ->where('nombre', $request->producto[$i])
-        ->get()
-        ->toArray();
-      $idProducto = $productoQuery['0']->id;
-      $existencias = $productoQuery['0']->existencias;
-      $producto = Producto::find($idProducto);
-      $cantidad = 0;
-      $unidadesActuales = $request->cantidad[$i];
-      $pedido = (array) self::obtenerPedido($request->producto[$i]);
-      if ($pedido == null) {
-        return redirect('/salida/venta')->with('error', 'No hay pedidos para uno de los productos seleccionados');
-      }
-      $detalle = self::nuevoDetalle($salida->id, $pedido['id'], (float) $request->totalProducto[$i], $cantidad);
-      $cantidadOrdenada = $pedido['cantidad_ordenada'];
-      $salidas = $pedido['salidas'];
-      $pedido_producto = DB::table('pedido_producto')
-              ->select('id')
-              ->orderBy('updated_at', 'desc')
-              ->orderBy('salidas', 'desc')
-              ->first();
-      for ($j = 0; $j < (int) $unidadesActuales; $j++) {
-        if ($salidas < $cantidadOrdenada && (int) $request->cantidad[$i] != 0) {
-          $cantidad++;
-          $salidas++;
-          $pedido_producto = self::actualizarPedidoProducto($pedido['id'], $salidas);
-          
-          self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias);
-          $existencias--;
-          $producto->existencias = $existencias;
-          $producto->save();
-        } else {
-          if ((int) $request->cantidad[$i] != 0) {
-            $pedido = (array) self::obtenerPedido($request->producto[$i]);
-            if ($pedido == null) {
-              return redirect('/salida/venta')->with('error', 'No hay pedidos para uno de los productos seleccionados');
-            }
-            $productoQuery = DB::table('productos')
-              ->select('id', 'existencias')
-              ->where('nombre', $request->producto[$i])
-              ->get()
-              ->toArray();
-            $idProducto = $productoQuery['0']->id;
-            $existencias = $productoQuery['0']->existencias - 1;
-            $producto->existencias = $existencias;
-            $producto->save();
-            $cantidad = 1;
-            $detalle = self::nuevoDetalle($salida->id, $pedido['id'], (float) $request->totalProducto[$i], $cantidad);
-            $cantidadOrdenada = $pedido['cantidad_ordenada'];
-            $salidas = $pedido['salidas'] + 1;
-            $pedido_producto = self::actualizarPedidoProducto($pedido['id'], $salidas);
-            $pedido_producto = DB::table('pedido_producto')
-              ->join('productos', 'pedido_producto.producto_id', 'productos.id')
-              ->select('pedido_producto.id')
-              ->where('productos.nombre', $request->producto[$i])
-              ->whereRaw('pedido_producto.salidas<pedido_producto.cantidad_ordenada')
-              ->orderBy('pedido_producto.updated_at', 'desc')
-              ->first();
-            self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias);
-          }
-        }
-      }
-    }
-    if ($request->factura == "Sencilla") {
-      self::compradorFacturaSencilla($request->nombre_comprador, $salida);
-    } elseif ($request->factura == "Consumidor final") {
-      self::compradorFacturaConsumidorFinal($request->nombre_comprador, $request->dui, $request->direccion, $request->cuenta, $salida);
-    } elseif ($request->factura == "Crédito fiscal") {
-      self::guardarEntidad($request->entidad, $salida);
-    }
-    return redirect('/salida/venta')->with('success', 'Se ha registrado la salida');
+    $hoy = (Carbon::today('America/El_Salvador'))->toArray();
+    return $hoy;
   }
 
-  public function show(){
+  public function generarFacturaSencilla(Request $request)
+  {
+    $fecha = self::obtenerFechaActual();
+
+    $data = [
+      'dia' => $fecha['day'],
+      'mes' => $fecha['month'],
+      'anio' => $fecha['year'],
+      'ventas_gravadas' => $request->total,
+      'subtotal' => $request->total_iva,
+      'nombre' => $request->nombre_comprador
+    ];
+
+    $pdf = PDF::loadView('salidas.facturaSencilla', $data);
+    return $pdf->download('factura-sencilla'.$request->correlativo_factura.'.pdf');
+  }
+
+  public function generarFacturaConsumidorFinal(Request $request)
+  {
+    $fecha = self::obtenerFechaActual();
+
+    $data = [
+      'dia' => $fecha['day'],
+      'mes' => $fecha['month'],
+      'anio' => $fecha['year'],
+      'nombre' => $request->nombre_comprador,
+      'dui' => $request->dui,
+      'direccion' => $request->direccion,
+      'cuenta' => $request->cuenta,
+      'producto' => $request->producto,
+      'cantidad' => $request->cantidad,
+      'precio' => $request->precio,
+      'totalProducto' => $request->totalProducto,
+      'sumas' => $request->total,
+      'iva' => round(($request->total*0.13), 2),
+      'subtotal' => $request->total_iva,
+    ];
+
+    $pdf = PDF::loadView('salidas.facturaConsumidorFinal', $data);
+    return $pdf->download('factura-consumidor-final'.$request->correlativo_factura.'.pdf');
+  }
+
+  public function generarCreditoFiscal(Request $request)
+  {
+    $fecha = self::obtenerFechaActual();
+
+    $entidad = DB::table('entidades')
+    ->where('nombre', $request->entidad)
+    ->get()
+    ->toArray();
+
+    $data = [
+      'dia' => $fecha['day'],
+      'mes' => $fecha['month'],
+      'anio' => $fecha['year'],
+      'nombre' => $request->nombre_comprador,
+      'dui' => $request->dui,
+      'direccion' => $request->direccion,
+      'cuenta' => $request->cuenta,
+      'producto' => $request->producto,
+      'cantidad' => $request->cantidad,
+      'precio' => $request->precio,
+      'totalProducto' => $request->totalProducto,
+      'sumas' => $request->total,
+      'iva' => round(($request->total*0.13), 2),
+      'subtotal' => $request->total_iva,
+      'nombre' => $entidad[0]->nombre,
+      'direccion' => strlen($entidad[0]->direccion) > 16 ? $direccion = substr($entidad[0]->direccion, 0, 17) : $direccion = $entidad[0]->direccion,
+      'nit' => $entidad[0]->nit,
+      'numero_registro' => $entidad[0]->numero_registro,
+      'giro' => $entidad[0]->giro,
+    ];
+
+    $pdf = PDF::loadView('salidas.creditoFiscal', $data);
+    return $pdf->download('credito-fiscal'.$request->correlativo_factura.'.pdf');
+  }
+
+  public function storeVenta(Request $request)
+  {
+    switch ($request->input('action')) {
+      case 'generarFactura':
+        if ($request->factura == "Sencilla") {
+          return redirect()->route('facturaSencilla', [$request]);
+        } elseif ($request->factura == "Consumidor final") { 
+          return redirect()->route('facturaConsumidorFinal', [$request]);
+        } elseif ($request->factura == "Crédito fiscal") {
+          return redirect()->route('creditoFiscal', [$request]);
+         }
+
+        break;
+      case 'guardar':
+        $salida = self::nuevaSalidaVenta($request->tipo, $request->fecha_emision, $request->total, $request->promocion, $request->correlativo_factura, $request->factura, $request->cantidad_promociones, $request->total_iva);
+        for ($i = 0; $i < count($request->producto); $i++) {
+          $productoQuery = DB::table('productos')
+            ->select('id', 'existencias')
+            ->where('nombre', $request->producto[$i])
+            ->get()
+            ->toArray();
+          $idProducto = $productoQuery['0']->id;
+          $existencias = $productoQuery['0']->existencias;
+          $producto = Producto::find($idProducto);
+          $cantidad = 0;
+          $unidadesActuales = $request->cantidad[$i];
+          $pedido = (array) self::obtenerPedido($request->producto[$i]);
+          if ($pedido == null) {
+            return redirect('/salida/venta')->with('error', 'No hay pedidos para uno de los productos seleccionados');
+          }
+          $detalle = self::nuevoDetalle($salida->id, $pedido['id'], (float) $request->totalProducto[$i], $cantidad);
+          $cantidadOrdenada = $pedido['cantidad_ordenada'];
+          $salidas = $pedido['salidas'];
+          $pedido_producto = DB::table('pedido_producto')
+            ->select('id')
+            ->orderBy('updated_at', 'desc')
+            ->orderBy('salidas', 'desc')
+            ->first();
+          for ($j = 0; $j < (int) $unidadesActuales; $j++) {
+            if ($salidas < $cantidadOrdenada && (int) $request->cantidad[$i] != 0) {
+              $cantidad++;
+              $salidas++;
+              $pedido_producto = self::actualizarPedidoProducto($pedido['id'], $salidas);
+
+              self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias);
+              $existencias--;
+              $producto->existencias = $existencias;
+              $producto->save();
+            } else {
+              if ((int) $request->cantidad[$i] != 0) {
+                $pedido = (array) self::obtenerPedido($request->producto[$i]);
+                if ($pedido == null) {
+                  return redirect('/salida/venta')->with('error', 'No hay pedidos para uno de los productos seleccionados');
+                }
+                $productoQuery = DB::table('productos')
+                  ->select('id', 'existencias')
+                  ->where('nombre', $request->producto[$i])
+                  ->get()
+                  ->toArray();
+                $idProducto = $productoQuery['0']->id;
+                $existencias = $productoQuery['0']->existencias - 1;
+                $producto->existencias = $existencias;
+                $producto->save();
+                $cantidad = 1;
+                $detalle = self::nuevoDetalle($salida->id, $pedido['id'], (float) $request->totalProducto[$i], $cantidad);
+                $cantidadOrdenada = $pedido['cantidad_ordenada'];
+                $salidas = $pedido['salidas'] + 1;
+                $pedido_producto = self::actualizarPedidoProducto($pedido['id'], $salidas);
+                $pedido_producto = DB::table('pedido_producto')
+                  ->join('productos', 'pedido_producto.producto_id', 'productos.id')
+                  ->select('pedido_producto.id')
+                  ->where('productos.nombre', $request->producto[$i])
+                  ->whereRaw('pedido_producto.salidas<pedido_producto.cantidad_ordenada')
+                  ->orderBy('pedido_producto.updated_at', 'desc')
+                  ->first();
+                self::actualizarDatosDetalle($detalle, $request->precio[$i], $cantidad, $pedido_producto->id, $existencias);
+              }
+            }
+          }
+        }
+        if ($request->factura == "Sencilla") {
+          self::compradorFacturaSencilla($request->nombre_comprador, $salida);
+        } elseif ($request->factura == "Consumidor final") {
+          self::compradorFacturaConsumidorFinal($request->nombre_comprador, $request->dui, $request->direccion, $request->cuenta, $salida);
+        } elseif ($request->factura == "Crédito fiscal") {
+          self::guardarEntidad($request->entidad, $salida);
+        }
+
+        return redirect('/versalidas')->with('success', 'Se ha registrado la salida');
+        break;
+    }
+  }
+
+  public function show()
+  {
     $salida = DB::table('salidas')
-    ->join('detalles', 'salidas.id', 'detalles.salida_id')
-    ->join('pedido_producto', 'detalles.pedido_producto_id', 'pedido_producto.id')
-    ->join('productos', 'productos.id', 'pedido_producto.id')
-    ->where('detalles.cantidad_vendida', '<>', 0)
-    ->get();
+      ->join('detalles', 'salidas.id', 'detalles.salida_id')
+      ->join('pedido_producto', 'detalles.pedido_producto_id', 'pedido_producto.id')
+      ->join('productos', 'productos.id', 'pedido_producto.id')
+      ->where('detalles.cantidad_vendida', '<>', 0)
+      ->get();
 
     $tipos = DB::table('tipos')
-    ->select('nombre')
-    ->where('id', $salida[0]->tipo_id)
-    ->get();
+      ->select('nombre')
+      ->where('id', $salida[0]->tipo_id)
+      ->get();
     $tipo = $tipos[0]->nombre;
 
     return view('salidas.show', compact('salida', 'tipo'));
