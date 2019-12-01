@@ -19,8 +19,13 @@ class CotizacionController extends Controller
   {
     //
     $cotizaciones = Cotizacion::all();
-    $eventos = Evento::all();
-
+    $eventos = DB::table('eventos')->whereMonth('fecha_evento','11')->whereYear('fecha_evento', date("Y"))->get();
+    
+    $sum = 0;
+    foreach ($eventos as $evento) {
+        $sum = $evento->cantidad_personas + $sum; 
+    }
+    dd($sum);
     return view('cotizaciones.verCotizaciones', compact('cotizaciones', 'eventos'));
 
   }

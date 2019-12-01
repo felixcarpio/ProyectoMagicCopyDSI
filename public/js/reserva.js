@@ -11,7 +11,7 @@ cargarEventos();
 function cargarEventos(){
 
     document.addEventListener('DOMContentLoaded', compra.leerLocalStorageCompra());
-
+    
     carrito.addEventListener('click', (e)=>{compra.eliminarProducto(e)});
 
     compra.calcularTotal();

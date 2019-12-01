@@ -64,10 +64,12 @@ Route::put('reservas/{reserva}', 'ReservaController@update')->name('reserva.actu
 Route::delete('/reservas/{reserva}','ReservaController@destroy')->name('reserva.eliminar');
 Route::get('/reservas/{reserva}','ReservaController@show')->name('reserva.mostrar');
 Route::get('/reserva/categoria','ReservaController@reservaCategoria')->name('reserva.categoria.mostrar');
+Route::get('/reserva/categoriaUnica/{tipo}','ReservaController@reservaCategoriaUnica')->name('reserva.categoria.mostrar.unica');
 Route::get('/reserva/reservaConfirmacion', 'ReservaController@create')->name('reserva.guardar');
+
 Route::post('/reserva/pdf','ReservaController@store')->name('reserva.almacenar');
-Route::get('pdfImpreso','ReservaController@generatePDF58');
 Route::get('/reserva/pdf/ver', 'ReservaController@datosPDF');
+Route::get('pdfImpreso','ReservaController@generatePDF58');
 
 // Route::get('pdfImpreso', function(){
 //   $pdf = PDF::loadView('reservas.pdf');
@@ -95,6 +97,7 @@ Route::post('/salida/verificar', 'SalidaController@verificarSalida');
 Route::post('/salida/guardar', 'SalidaController@store');
 Route::resource('/salida', 'SalidaController');
 Route::get('/versalidas/{pedido}','SalidaController@show')->name('salida.ver');
+Route::get('/datosanioactual', 'SalidaController@ObtenerTotalVentasAnioActual');
 
 
 // -------------- RUTAS MAQUINAS -------------

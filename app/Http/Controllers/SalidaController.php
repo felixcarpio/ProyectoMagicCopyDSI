@@ -429,4 +429,105 @@ class SalidaController extends Controller
 
     return view('salidas.show', compact('salida', 'tipo'));
   }
+
+// Obtener los totales de ventas realizadas en el anio actual
+  public function ObtenerTotalVentasAnioActual(){
+    $totalEne = DB::table('salidas')->whereMonth('fecha_emision','1')->whereYear('fecha_emision', date("Y"))->get();
+    $totalFeb = DB::table('salidas')->whereMonth('fecha_emision','2')->whereYear('fecha_emision', date("Y"))->get();
+    $totalMar = DB::table('salidas')->whereMonth('fecha_emision','3')->whereYear('fecha_emision', date("Y"))->get();
+    $totalAbr = DB::table('salidas')->whereMonth('fecha_emision','4')->whereYear('fecha_emision', date("Y"))->get();
+    $totalMay = DB::table('salidas')->whereMonth('fecha_emision','5')->whereYear('fecha_emision', date("Y"))->get();
+    $totalJun = DB::table('salidas')->whereMonth('fecha_emision','6')->whereYear('fecha_emision', date("Y"))->get();
+    $totalJul = DB::table('salidas')->whereMonth('fecha_emision','7')->whereYear('fecha_emision', date("Y"))->get();
+    $totalAgo = DB::table('salidas')->whereMonth('fecha_emision','8')->whereYear('fecha_emision', date("Y"))->get();
+    $totalSep = DB::table('salidas')->whereMonth('fecha_emision','9')->whereYear('fecha_emision', date("Y"))->get();
+    $totalOct = DB::table('salidas')->whereMonth('fecha_emision','10')->whereYear('fecha_emision', date("Y"))->get();
+    $totalNov = DB::table('salidas')->whereMonth('fecha_emision','11')->whereYear('fecha_emision', date("Y"))->get();
+    $totalDic = DB::table('salidas')->whereMonth('fecha_emision','12')->whereYear('fecha_emision', date("Y"))->get();
+
+    $sumEne = 0;
+    foreach ($totalEne as $totalE) {
+      if($totalE->tipo_id == 1){
+        $sumEne = $totalE->total + $sumEne; 
+      }
+    }
+
+    $sumFeb = 0;
+    foreach ($totalFeb as $totalF) {
+      if($totalF->tipo_id == 1){
+        $sumFeb = $totalF->total + $sumFeb; 
+      }
+    }
+
+    $sumMar = 0;
+    foreach ($totalMar as $totalM) {
+      if($totalM->tipo_id == 1){
+        $sumMar = $totalM->total + $sumMar; 
+      }
+    }
+
+    $sumAbr = 0;
+    foreach ($totalAbr as $totalA) {
+      if($totalA->tipo_id == 1){
+        $sumAbr = $totalA->total + $sumAbr; 
+      }
+    }
+
+    $sumMay = 0;
+    foreach ($totalMay as $totalMa) {
+      if($totalMa->tipo_id == 1){
+        $sumMay = $totalMa->total + $sumMay; 
+      }
+    }
+
+    $sumJun = 0;
+    foreach ($totalJun as $totalJ) {
+      if($totalJ->tipo_id == 1){
+        $sumJun = $totalJ->total + $sumJun; 
+      }
+    }
+
+    $sumJul = 0;
+    foreach ($totalJul as $totalJu) {
+      if($totalJu->tipo_id == 1){
+        $sumJul = $totalJu->total + $sumJul; 
+      }
+    }
+
+    $sumAgo = 0;
+    foreach ($totalAgo as $totalAg) {
+      if($totalAg->tipo_id == 1){
+        $sumAgo = $totalAg->total + $sumAgo; 
+      }
+    }
+
+    $sumSep = 0;
+    foreach ($totalSep as $totalS) {
+      if($totalS->tipo_id == 1){
+        $sumSep = $totalS->total + $sumSep; 
+      }
+    }
+
+    $sumOct = 0;
+    foreach ($totalOct as $totalO) {
+      if($totalO->tipo_id == 1){
+        $sumOct = $totalO->total + $sumOct; 
+      }
+    }
+
+    $sumNov = 0;
+    foreach ($totalNov as $totalN) {
+      if($totalN->tipo_id == 1){
+        $sumNov = $totalN->total + $sumNov; 
+      }
+    }
+
+    $sumDic = 0;
+    foreach ($totalDic as $totalD) {
+      if($totalD->tipo_id == 1){
+        $sumDic = $totalD->total + $sumDic; 
+      }
+    }
+    return view('salidas.ventaAnioActual', compact('sumEne','sumFeb', 'sumMar', 'sumAbr', 'sumMay', 'sumJun','sumJul','sumAgo','sumSep','sumOct','sumNov', 'sumDic'));
+  }
 }
