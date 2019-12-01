@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  @auth 
+  {{-- @auth  --}}
     <div class="container">
       <br>
       <h1 class="principal"> Reserva # {{$reserva->codigo_reserva}} </h1>
@@ -51,13 +51,8 @@
               <h3><strong>Fecha de Reclamo: </strong><label>{{$reserva->fecha_reclamo}}</label></h3>
             </div>
         </div>
-
         <br><br>
-
-
       </div>
-
-
-    @endauth 
+    {{-- @endauth  --}}
 
   @endsection

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use App\Producto;
 use App\Marca;
 use App\Proveedor;
+use App\CategoriaProducto;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
@@ -23,9 +24,11 @@ class ProductoController extends Controller
 
       $marcas = Marca::all();
 
+      $categorias = CategoriaProducto::all();
+
       $proveedores = Proveedor::all();
 
-     return view('productos.producto')->with('marcas',$marcas)->with('articulo',$articulo)->with('proveedores',$proveedores);
+     return view('productos.producto')->with('marcas',$marcas)->with('articulo',$articulo)->with('proveedores',$proveedores)->with('categorias',$categorias);
 
     }
 
@@ -53,6 +56,7 @@ class ProductoController extends Controller
         // 'descripcion' => 'required',
         'precio' => 'required',
         // 'existencias' => 'required',
+        'marcas_id' => 'required',
         'marcas_id' => 'required',
         // 'imagen' => 'required',
       ]);
@@ -82,6 +86,7 @@ class ProductoController extends Controller
       $articulo->precio_con_descuento = $request->input('precioConDescuento');
       $articulo->existencias = 0;
       $articulo->marcas_id = $request->input('marcas_id');
+      $articulo->categorias_id = $request->input('categorias_id');
       // $articulo->proveedor_id = $request->input('proveedor_id');
 
       $articulo->imagen = $nombreDeArchivoAlmacenar;
@@ -111,7 +116,8 @@ class ProductoController extends Controller
 
       $producto = Producto::find($id);
       $marcas = Marca::all();
-      return view('productos.ver', compact('productoProveedor', 'producto', 'marcas'));
+      $categorias = CategoriaProducto::all();
+      return view('productos.ver', compact('productoProveedor', 'producto', 'marcas', 'categorias'));
 
     }
     /**
@@ -141,6 +147,7 @@ class ProductoController extends Controller
         'precio' => '|required|numeric',
         // 'existencias' => '|required|numeric',
         'marcas_id' => 'required',
+        'categorias_id' => 'required',
         // 'proveedor_id' => 'required',
       //  'imagen' => 'required',
       ]);
@@ -162,6 +169,7 @@ class ProductoController extends Controller
       $articulo->precio = $request->input('precio');
       $articulo->precio_con_descuento = $request->input('precioConDescuento');
       $articulo->marcas_id = $request->input('marcas_id');
+      $articulo->categorias_id = $request->input('categorias_id');
       // $articulo->proveedor_id = $request->input('proveedor_id');
       if($request->hasFile('imagen')){
         Storage::delete('MagicCopy/public/images/' . $articulo->imagen);

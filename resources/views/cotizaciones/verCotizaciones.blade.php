@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  @auth
+  {{-- @auth --}}
 
 <!-- Start Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -111,6 +111,6 @@
   <script src="js/cotizaciones.js"></script>]
 @endsection
 
- @endauth 
+ {{-- @endauth  --}}
 
 @endsection
