@@ -23,6 +23,8 @@ class CreateProductosTable extends Migration
             $table->float('precio_con_descuento')->nullable(True);
             $table->integer('marcas_id')->unsigned();
             $table->foreign('marcas_id')->references('id')->on('marcas')->onDelete('cascade');
+            $table->integer('categorias_id')->unsigned();
+            $table->foreign('categorias_id')->references('id')->on('categorias_productos')->onDelete('cascade');
             $table->string('imagen')->nullable(True);
             $table->timestamps();
         });

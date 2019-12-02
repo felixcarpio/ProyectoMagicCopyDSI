@@ -15,18 +15,17 @@ class Carrito {
       titulo: producto.querySelector('h2').textContent,
       precio: producto.querySelector('label.precio').textContent,
       // precioConDescuento : producto.querySelector('label.precioDescuento').textContent,
-      id: producto.querySelector('a').getAttribute('data-id'),
-      cantidad: 1
+      cantidad: producto.querySelector('input.cantidad').value,
+      id: producto.querySelector('a').getAttribute('data-id')
     }
-
     let productosLS;
     productosLS = this.obtenerProductosLocalStorage();
-    productosLS.forEach(function(productoLS){
-      if(productoLS.id === infoProducto.id){
+    productosLS.forEach(function (productoLS) {
+      if (productoLS.id === infoProducto.id) {
         productosLS = productoLS.id;
       }
     });
-    if(productosLS === infoProducto.id){
+    if (productosLS === infoProducto.id) {
       Swal.fire({
         type: 'error',
         title: 'Oops...',
@@ -34,8 +33,23 @@ class Carrito {
         timer: 3000
       })
     }
-    else{
-      this.insertarCarrito(infoProducto);
+    else {
+      if (infoProducto.cantidad <= 0) {
+        Swal.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'Elija una cantidad de producto mayor a cero',
+          timer: 3000
+        })
+      } else {
+        this.insertarCarrito(infoProducto);
+        Swal.fire({
+          type: 'success',
+          title: 'Producto Agregado',
+          text: 'Producto agregado al carrito con exito',
+          timer: 2000
+        })
+      }
     }
   }
 
@@ -130,20 +144,20 @@ class Carrito {
     });
   }
 
-  vaciarLocalStorage(){
+  vaciarLocalStorage() {
     localStorage.clear();
   }
 
-  procesarPedido(e){
+  procesarPedido(e) {
     e.preventDefault();
-    if(this.obtenerProductosLocalStorage().length === 0){
+    if (this.obtenerProductosLocalStorage().length === 0) {
       Swal.fire({
         type: 'error',
         title: 'Oops...',
         text: 'No hay productos en el carrito',
         timer: 2000
       })
-    }else{
+    } else {
       location.href = "/reserva/reservaConfirmacion";
 
     }
@@ -168,6 +182,7 @@ class Carrito {
         <input type="number" name="cantidadInput[]" style="display:none" value="${producto.cantidad}">
       </td>
       <td>${producto.precio * producto.cantidad}</td>
+      <input type="number" name="subtotalInput[]" style="display:none" value="${producto.precio * producto.cantidad}">
       <td>
         <a href="#" class="borrar-producto fas fa-times-circle" data-id="${producto.id}"></a>
         <input type="number" name="productoInput[]" style="display:none" value="${producto.id}">
@@ -177,14 +192,16 @@ class Carrito {
     });
   }
 
+
+
   //Calcular montos
-  calcularTotal(){
+  calcularTotal() {
     let productosLS;
     let total = 0, igv = 0, subtotal = 0;
     productosLS = this.obtenerProductosLocalStorage();
-    for(let i = 0; i < productosLS.length; i++){
-        let element = Number(productosLS[i].precio * productosLS[i].cantidad);
-        subtotal = subtotal + element;
+    for (let i = 0; i < productosLS.length; i++) {
+      let element = Number(productosLS[i].precio * productosLS[i].cantidad);
+      subtotal = subtotal + element;
 
     }
 
@@ -193,9 +210,7 @@ class Carrito {
     console.log(subtotal);
     total = subtotal;
     console.log(total);
-    document.getElementById('subtotal').innerHTML = "$ " + subtotal.toFixed(2);
-    document.getElementById('igv').innerHTML = "$ " + igv.toFixed(2);
     document.getElementById('total').innerHTML = subtotal.toFixed(2);
     document.getElementById('inputTotal').value = subtotal.toFixed(2);
-}
+  }
 }

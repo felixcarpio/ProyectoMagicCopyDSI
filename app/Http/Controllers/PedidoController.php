@@ -92,8 +92,8 @@ class PedidoController extends Controller
     // validacion fecha
     $fechaMayor = self::validarFechaMayorDeHoy($request->fecha_solicitud);
 
-    if($fechaMayor){
-      return redirect('pedido')->with('error','No es posible ingresar una fecha mayor a la del dia de hoy');
+    if($fechaMayor){ 
+      return redirect('verpedidos')->with('error','No es posible ingresar una fecha mayor a la del dia de hoy');
     }
 
     $pedido->fecha_solicitud = $request->input('fecha_solicitud');
@@ -114,7 +114,7 @@ class PedidoController extends Controller
         }
       }
 
-      return redirect('pedido')->with('success', 'El Pedido se guardó exitosamente');
+      return redirect('verpedidos')->with('success', 'El Pedido se guardó exitosamente');
 
     }
 

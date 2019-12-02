@@ -38,20 +38,6 @@
 
             </tbody>
             <tr>
-              <th colspan="4" scope="col" class="text-right">SUB TOTAL :</th>
-              <th scope="col">
-                <p id="subtotal"></p>
-              </th>
-              <!-- <th scope="col"></th> -->
-            </tr>
-            <tr>
-              <th colspan="4" scope="col" class="text-right">IVA :</th>
-              <th scope="col">
-                <p id="igv"></p>
-              </th>
-              <!-- <th scope="col"></th> -->
-            </tr>
-            <tr>
               <th colspan="4" scope="col" class="text-right">TOTAL :</th>
               <th scope="col">
                 <p id="total"></p>

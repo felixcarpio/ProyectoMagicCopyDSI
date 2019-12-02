@@ -1,0 +1,14 @@
+#main {
+  width:100%;
+  height: 100%;
+}
+
+.filtroAnio {
+  display:inline-block;
+  width: 50%;
+}
+
+.btnFiltro {
+  display:inline-block;
+  width: 30%;
+}
