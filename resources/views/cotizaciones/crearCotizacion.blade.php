@@ -15,7 +15,7 @@
 
     </div>
     <br>
-    <a class="btn btn-success" href="/">Bienvenido</a>
+    <a class="btn btn-success" href="/home">Bienvenido</a>
   </div>
   <br>
   <div class="contenedor-destacados">

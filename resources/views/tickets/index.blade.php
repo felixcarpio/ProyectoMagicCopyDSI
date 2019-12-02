@@ -19,7 +19,7 @@
             <a href="{{route('tickets.create')}}" class="btn btn-success ingresar">
                 Ingresar Ticket
             </a>
-            <a href="/" class="btn btn-info btnposi">Regresar</a>
+            <a href="/home" class="btn btn-info btnposi">Regresar</a>
             <br><br>
         </div>
         <br>

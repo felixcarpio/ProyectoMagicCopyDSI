@@ -45,22 +45,22 @@ class ClienteController extends Controller
             'nombre' => 'required',
             'apellido' => 'required',
             'correo' => 'required',
-            'dui' => 'required',
-            'nombre_empresa' => 'required',
             'direccion' => 'required',
+            'telefono' => 'required',
+            
         ]);
 
         $data = $request->all();
         $lastid = Cliente::create($data)->id;
-        if(count($request->numero) > 0){
-            foreach($request->numero as $item => $v){
-                $data2 = array(
-                    'cliente_id' => $lastid,
-                    'numero' => $request->numero[$item]
-                );
-                Telefono::insert($data2);
-            }
-        }
+        //if(count($request->numero) > 0){
+          //  foreach($request->numero as $item => $v){
+            //    $data2 = array(
+              //      'cliente_id' => $lastid,
+                //    'numero' => $request->numero[$item]
+                //);
+                //Telefono::insert($data2);
+            //}
+        //}
         return redirect()->route('clientes.index')->with('success','El Cliente se ingresó correctamente');
     }
 
@@ -72,7 +72,9 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        $cliente = Cliente::find($id);
+
+        return view('clientes.show', compact('cliente'));
     }
 
     /**
@@ -83,7 +85,9 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cliente = Cliente::find($id);
+
+        return view('clientes.edit',compact('cliente'));
     }
 
     /**
@@ -95,7 +99,32 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'correo' => 'required',
+            'direccion' => 'required',
+            'telefono' => 'required',
+            ]);
+
+            $cliente = Cliente::find($id);
+
+            $cliente->nombre = $request->input('nombre');
+            $cliente->apellido = $request->input('apellido');
+            $cliente->correo = $request->input('correo');
+            $cliente->dui = $request->input('dui');
+            $cliente->direccion = $request->input('direccion');
+            $cliente->nombre_empresa = $request->input('nombre_empresa');
+            $cliente->giro = $request->input('giro');
+            $cliente->nit = $request->input('nit');
+            $cliente->registro = $request->input('registro');
+            $cliente->telefono = $request->input('telefono');
+            $cliente->telefono2 = $request->input('telefono2');
+
+            $cliente->save();
+
+            return redirect()->route('clientes.index')->with('success','El Cliente se modificó correctamente');
+
     }
 
     /**

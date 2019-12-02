@@ -19,7 +19,7 @@
             <a href="{{route('clientes.create')}}" class="btn btn-success ingresar">
                 Ingresar Cliente
             </a>
-            <a href="/" class="btn btn-info btnposi">Regresar</a>
+            <a href="/home" class="btn btn-info btnposi">Regresar</a>
             <br><br>
         </div>
         <br>
@@ -49,7 +49,7 @@
                         <td>{{$cliente->direccion}}</td>
                         <td>
                             <a href="{{route('clientes.edit',$cliente->id)}}"><i class="fas fa-edit"></i></a>
-                            <a href="#"><i class="fas fa-toolbox"></i></a>
+                            <a href="{{route('clientes.show',$cliente->id)}}" class="detalle view"><i class="fas fa-eye"></i></a>
                         </td>
                     </tr>
                     @endforeach
