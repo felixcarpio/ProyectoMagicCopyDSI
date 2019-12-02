@@ -122,7 +122,7 @@
               @endforeach
               <td>
                 <a href="{{route('reserva.mostrar', $reserva->id)}}" class="detalle view"><i class="fas fa-eye"></i></a>
-              <a href="/reserva/pdf/ver/{{$reserva->codigo_reserva}}"><i class="detallepdf fas fa-file-pdf"></i></a>
+              <a href="/pdfImpresoReserva/{{$reserva->codigo_reserva}}"><i class="detallepdf fas fa-file-pdf"></i></a>
                 <a href="#" class="edit actualizar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="delete borrar"><i class="fas fa-trash-alt"></i></a>
                </td>
