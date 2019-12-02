@@ -291,6 +291,6 @@ class ReservaController extends Controller
 
         $data = ['title' => 'Reserva'];
         $pdf = PDF::loadView('reservas.pdf', compact('reservaProductos'), compact('reservas'));
-        return $pdf->download('reserva.pdf');
+        return $pdf->download('reserva'. $id . '.pdf');
     }
 }
