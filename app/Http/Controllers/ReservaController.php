@@ -8,6 +8,7 @@ use App\EstadoReserva;
 use App\Producto;
 use Illuminate\Http\Request;
 use PDF;
+use Carbon\Carbon;
 
 class ReservaController extends Controller
 {
@@ -63,13 +64,13 @@ class ReservaController extends Controller
       $reservaProductos = DB::table('productos')
       ->join('producto_reserva','productos.id','producto_reserva.producto_id')
       ->join('reservas', 'producto_reserva.reserva_id', 'reservas.id')
-      ->select('productos.imagen', 'productos.nombre', 'productos.precio','producto_reserva.cantidad_ordenada')
+      ->select('productos.imagen', 'productos.nombre', 'productos.precio','productos.precio_con_descuento', 'producto_reserva.cantidad_ordenada','producto_reserva.sub_total')
       ->where('reservas.codigo_reserva', $ultimo[0]->codigo_reserva)
       ->get()->toArray();
 
 
       $reservas = DB::table('reservas')
-      ->select('reservas.precio_sin_descuento')
+      ->select('reservas.precio_sin_descuento','reservas.nombre', 'reservas.correo_comprador')
       ->where('reservas.codigo_reserva', $ultimo[0]->codigo_reserva)
       ->get()->toArray();
 
@@ -94,7 +95,7 @@ class ReservaController extends Controller
       ->get()->toArray();
 
       $reservas = DB::table('reservas')
-      ->select('reservas.precio_sin_descuento')
+      ->select('reservas.precio_sin_descuento', 'reservas.nombre', 'reservas.correo_comprador')
       ->where('reservas.codigo_reserva', $ultimo[0]->codigo_reserva)
       ->get()->toArray();
 
@@ -109,7 +110,7 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-      //  dd($request);
+      // dd($request);
       $this->validate($request,[
         // 'codigo'=>'required',
         'inputTotal'=>'required'
@@ -153,6 +154,10 @@ class ReservaController extends Controller
       $reserva->codigo_reserva = $codigoReserva;
       $reserva->precio_sin_descuento = $request->input('inputTotal');
       $reserva->telefono_reserva = 12345678;
+      $reserva->nombre = $request->input('nombre');
+      $reserva->correo_comprador= $request->input('correo');
+      $reserva->estado_reserva_id = 1;
+      $reserva->fecha_solicitud = Carbon::now();
       $reserva->save();
 
       $reserva_producto =  new Reserva;
@@ -210,6 +215,7 @@ class ReservaController extends Controller
 
 
       $reserva->estado_reserva_id = $request->input('estados_id');
+      $reserva->fecha_reclamo = Carbon::now();
 
       $reserva->save();
 
@@ -229,5 +235,42 @@ class ReservaController extends Controller
       $reserva->delete();
 
       return redirect('reservas')->with('success', 'Reserva Eliminada');
+    }
+
+    public function datosPDFReserva($id)
+    {
+      $reservaProductos = DB::table('productos')
+      ->join('producto_reserva','productos.id','producto_reserva.producto_id')
+      ->join('reservas', 'producto_reserva.reserva_id', 'reservas.id')
+      ->select('productos.imagen', 'productos.nombre', 'productos.precio','productos.precio_con_descuento', 'producto_reserva.cantidad_ordenada','producto_reserva.sub_total')
+      ->where('reservas.codigo_reserva', $id)
+      ->get()->toArray();
+
+      $reservas = DB::table('reservas')
+      ->select('reservas.codigo_reserva','reservas.precio_sin_descuento', 'reservas.nombre', 'reservas.correo_comprador')
+      ->where('reservas.codigo_reserva', $id)
+      ->get()->toArray();
+
+      return view('reservas.pdfPorReserva', compact('reservaProductos','reservas'));
+    }
+
+    public function generatePDF58Reserva($id)
+    {
+      $reservaProductos = DB::table('productos')
+      ->join('producto_reserva','productos.id','producto_reserva.producto_id')
+      ->join('reservas', 'producto_reserva.reserva_id', 'reservas.id')
+      ->select('productos.imagen', 'productos.nombre', 'productos.precio','productos.precio_con_descuento', 'producto_reserva.cantidad_ordenada','producto_reserva.sub_total')
+      ->where('reservas.codigo_reserva', $id)
+      ->get()->toArray();
+
+
+      $reservas = DB::table('reservas')
+      ->select('reservas.precio_sin_descuento','reservas.nombre', 'reservas.correo_comprador')
+      ->where('reservas.codigo_reserva', $id)
+      ->get()->toArray();
+
+        $data = ['title' => 'Reserva'];
+        $pdf = PDF::loadView('reservas.pdf', compact('reservaProductos'), compact('reservas'));
+        return $pdf->download('reserva.pdf');
     }
 }

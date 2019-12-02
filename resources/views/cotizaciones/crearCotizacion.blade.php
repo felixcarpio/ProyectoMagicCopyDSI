@@ -1,6 +1,4 @@
-
-
-  {{-- Aqui va header y footer--}}
+{{-- Aqui va header y footer--}}
 @include('cotizaciones.appCotizaciones')
 
   <div class="container">

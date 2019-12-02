@@ -33,6 +33,7 @@
               </div>
               <div class="footerIzquierda">
                 <div class="input">
+                    <input type="number" name="cantidad" min="1" class="cantidad" value="0">
                     @if ($producto->precio_con_descuento != NULL)
                       <label class="precio precioDescuento">{{$producto->precio_con_descuento}}</label>
                       <br>
@@ -51,7 +52,7 @@
           <p>no hay productos</p>
         @endforelse
       </div>
-{{-- probando nuevamente git --}}
+
     </div>
 </div>
 
