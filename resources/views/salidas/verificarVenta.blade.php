@@ -46,7 +46,6 @@
 </table>
 <button type="submit" name="action" value="generarFactura" class="btn btn-success" >Generar Factura</button>
 <button type="submit" name="action" value="guardar" class="btn btn-success">Confirmar datos</button>
-<!-- <button type="submit" class="btn btn-success">Datos correctos</button> -->
     <a href="/salida/venta" class="btn btn-danger">Regresar</a>
 </form>
 

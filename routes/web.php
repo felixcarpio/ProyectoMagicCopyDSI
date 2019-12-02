@@ -30,7 +30,7 @@ Route::resource('/proveedor','ProveedorController');
 Route::get('/inventario','InventarioController@index')->name('inventario');
 Route::get('/verpedidos','PedidoController@mostrarPedidos')->name('pedidos');
 Route::get('/verpedidos/{pedido}','PedidoController@show')->name('pedido.ver');
-Route::post('/inventario','InventarioController@getPedidosDelProducto');
+Route::post('/inventario','InventarioController@inventarioDelProducto');
 Route::get('/pedido', 'PedidoController@index')->name('pedido');
 Route::post('/pedido','PedidoController@getProductosProveedor');
 Route::post('/pedido/crear','PedidoController@store');
@@ -97,10 +97,10 @@ Route::post('/salida/verificar', 'SalidaController@verificarSalida');
 Route::post('/salida/guardar', 'SalidaController@store');
 Route::resource('/salida', 'SalidaController');
 Route::get('/versalidas/{pedido}','SalidaController@show')->name('salida.ver');
-Route::get('/datosanioactual', 'SalidaController@ObtenerTotalVentasAnioActual');
 Route::get('/facturaSencilla','SalidaController@generarFacturaSencilla')->name('facturaSencilla'); 
 Route::get('/facturaConsumidorFinal','SalidaController@generarFacturaConsumidorFinal')->name('facturaConsumidorFinal'); 
 Route::get('/creditoFiscal','SalidaController@generarCreditoFiscal')->name('creditoFiscal'); 
+Route::get('/pdfventas','SalidaController@generarReporteVentas')->name('reporteVentas'); 
 
 
 // -------------- RUTAS MAQUINAS -------------
@@ -126,4 +126,12 @@ Route::get('/contac/{contacto}','ContactoController@show')->name('contacto.ver')
 Route::get('/contac/editar/{contacto}', 'ContactoController@actualizar')->name('contacto.actualizar');
 Route::put('/contac/editar/{contacto}', 'ContactoController@update')->name('contacto.update');
 
-
+// -------------- RUTAS REPORTES ----------------
+Route::get('/reporteventas', 'SalidaController@ObtenerTotalVentasAnioActual');
+Route::post('/reporteventas', 'SalidaController@obtenerVentas');
+Route::get('/reporteInventario', 'InventarioController@indexReporte');
+Route::post('/reporteInventario', 'InventarioController@reporteInventario');
+Route::get('/pdfInventario','InventarioController@generarReporteInventario')->name('reporteInventario');
+Route::get('/reportes', function () {
+  return view('reportes');
+});

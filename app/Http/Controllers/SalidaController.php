@@ -534,6 +534,7 @@ class SalidaController extends Controller
 
 // Obtener los totales de ventas realizadas en el anio actual
   public function ObtenerTotalVentasAnioActual(){
+    $anio = "actual";
     $totalEne = DB::table('salidas')->whereMonth('fecha_emision','1')->whereYear('fecha_emision', date("Y"))->get();
     $totalFeb = DB::table('salidas')->whereMonth('fecha_emision','2')->whereYear('fecha_emision', date("Y"))->get();
     $totalMar = DB::table('salidas')->whereMonth('fecha_emision','3')->whereYear('fecha_emision', date("Y"))->get();
@@ -630,6 +631,141 @@ class SalidaController extends Controller
         $sumDic = $totalD->total + $sumDic; 
       }
     }
-    return view('salidas.ventaAnioActual', compact('sumEne','sumFeb', 'sumMar', 'sumAbr', 'sumMay', 'sumJun','sumJul','sumAgo','sumSep','sumOct','sumNov', 'sumDic'));
+    $anios = DB::table('salidas')
+    ->selectRaw('distinct(year(fecha_emision)) as fecha')
+    ->orderByDesc('fecha_emision')
+    ->get()->toArray();
+    return view('salidas.reporteVentas', compact('sumEne','sumFeb', 'sumMar', 'sumAbr', 'sumMay', 'sumJun','sumJul','sumAgo','sumSep','sumOct','sumNov', 'sumDic', 'anios', 'anio'));
+  }
+
+  public function generarReporteVentas(Request $request)
+  {
+    $ventas = DB::table('salidas')
+    ->where('tipo_id', 1)
+    ->whereRaw("year(salidas.fecha_emision) = '$request->fecha'")
+    ->get()->toArray();
+    $data = [
+      'anio' => $request->fecha,
+      'ventas' => $ventas
+    ];
+
+    $pdf = PDF::loadView('salidas.reporte', $data);
+    return $pdf->download('ventas-'.$request->fecha.'.pdf');
+  }
+
+  public function obtenerVentas(Request $request){
+    switch ($request->input('action')) {
+      case 'reporte':
+      if($request->fecha == null){
+        return redirect('/reporteventas')->with('error', 'Debe seleccionar un Año');
+      }
+      return redirect()->route('reporteVentas', [$request]);
+      break;
+      case 'filtro':
+    $totalEne = DB::table('salidas')->whereMonth('fecha_emision','1')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalFeb = DB::table('salidas')->whereMonth('fecha_emision','2')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalMar = DB::table('salidas')->whereMonth('fecha_emision','3')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalAbr = DB::table('salidas')->whereMonth('fecha_emision','4')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalMay = DB::table('salidas')->whereMonth('fecha_emision','5')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalJun = DB::table('salidas')->whereMonth('fecha_emision','6')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalJul = DB::table('salidas')->whereMonth('fecha_emision','7')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalAgo = DB::table('salidas')->whereMonth('fecha_emision','8')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalSep = DB::table('salidas')->whereMonth('fecha_emision','9')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalOct = DB::table('salidas')->whereMonth('fecha_emision','10')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalNov = DB::table('salidas')->whereMonth('fecha_emision','11')->whereYear('fecha_emision', $request->fecha)->get();
+    $totalDic = DB::table('salidas')->whereMonth('fecha_emision','12')->whereYear('fecha_emision', $request->fecha)->get();
+
+    $sumEne = 0;
+    foreach ($totalEne as $totalE) {
+      if($totalE->tipo_id == 1){
+        $sumEne = $totalE->total + $sumEne; 
+      }
+    }
+
+    $sumFeb = 0;
+    foreach ($totalFeb as $totalF) {
+      if($totalF->tipo_id == 1){
+        $sumFeb = $totalF->total + $sumFeb; 
+      }
+    }
+
+    $sumMar = 0;
+    foreach ($totalMar as $totalM) {
+      if($totalM->tipo_id == 1){
+        $sumMar = $totalM->total + $sumMar; 
+      }
+    }
+
+    $sumAbr = 0;
+    foreach ($totalAbr as $totalA) {
+      if($totalA->tipo_id == 1){
+        $sumAbr = $totalA->total + $sumAbr; 
+      }
+    }
+
+    $sumMay = 0;
+    foreach ($totalMay as $totalMa) {
+      if($totalMa->tipo_id == 1){
+        $sumMay = $totalMa->total + $sumMay; 
+      }
+    }
+
+    $sumJun = 0;
+    foreach ($totalJun as $totalJ) {
+      if($totalJ->tipo_id == 1){
+        $sumJun = $totalJ->total + $sumJun; 
+      }
+    }
+
+    $sumJul = 0;
+    foreach ($totalJul as $totalJu) {
+      if($totalJu->tipo_id == 1){
+        $sumJul = $totalJu->total + $sumJul; 
+      }
+    }
+
+    $sumAgo = 0;
+    foreach ($totalAgo as $totalAg) {
+      if($totalAg->tipo_id == 1){
+        $sumAgo = $totalAg->total + $sumAgo; 
+      }
+    }
+
+    $sumSep = 0;
+    foreach ($totalSep as $totalS) {
+      if($totalS->tipo_id == 1){
+        $sumSep = $totalS->total + $sumSep; 
+      }
+    }
+
+    $sumOct = 0;
+    foreach ($totalOct as $totalO) {
+      if($totalO->tipo_id == 1){
+        $sumOct = $totalO->total + $sumOct; 
+      }
+    }
+
+    $sumNov = 0;
+    foreach ($totalNov as $totalN) {
+      if($totalN->tipo_id == 1){
+        $sumNov = $totalN->total + $sumNov; 
+      }
+    }
+
+    $sumDic = 0;
+    foreach ($totalDic as $totalD) {
+      if($totalD->tipo_id == 1){
+        $sumDic = $totalD->total + $sumDic; 
+      }
+    }
+    $anios = DB::table('salidas')
+    ->selectRaw('distinct(year(fecha_emision)) as fecha')
+    ->orderByDesc('fecha_emision')
+    ->get()->toArray();
+
+    $anio = $request->fecha;
+    return view('salidas.reporteVentas', compact('sumEne','sumFeb', 'sumMar', 'sumAbr', 'sumMay', 'sumJun','sumJul','sumAgo','sumSep','sumOct','sumNov', 'sumDic', 'anios', 'anio'));
+  break;
+    }
   }
 }
