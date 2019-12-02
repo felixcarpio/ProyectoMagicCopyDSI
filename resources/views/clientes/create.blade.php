@@ -24,74 +24,32 @@ Ingresar Cliente
                 <input type="text" name="correo" class="form-control">
                 <label class="col-form-label">DUI de Cliente: </label>
                 <input type="text" name="dui" class="form-control">
-                <label class="col-form-label">Nombre de Empresa: </label>
-                <input type="text" name="nombre_empresa" class="form-control">
                 <label class="col-form-label">Dirección de Cliente: <span style="color:red">*</span></label>
                 <input type="text" name="direccion" class="form-control">
-
-                <!-- Inicio tabla telefono -->
-                <div class="form-group">
-                    <label class="col-form-label">Telefono: <span style="color:red">*</span></label>
-                </div>
-
-                <div class="panel panel-footer">
-                    <table class="table table-bordered">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Número</th>
-                                <th><a href="#" class="addRow"><i class="fas fa-plus-circle"></i></a></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="number" max="99999999" step="1" name="numero[]" required="" class="form-control" placeholder="99999999"></td>
-                                <td class="remover"><a href="#" class="remove"><i class="fas fa-minus-circle"></i></a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+                <label class="col-form-label">Nombre de Empresa: </label>
+                <input type="text" name="nombre_empresa" class="form-control">
+                <label class="col-form-label">Giro de la empresa: </label>
+                <input type="text" name="giro" class="form-control">
+                <label class="col-form-label">NIT: </label>
+                <input type="text" name="nit" class="form-control">
+                <label class="col-form-label">Registro: </label>
+                <input type="text" name="registro" class="form-control">
+                <label class="col-form-label">Telefono: <span style="color:red">*</span></label>
+                <input type="text" name="telefono" class="form-control">
+                <label class="col-form-label">Telefono: </label>
+                <input type="text" name="telefono2" class="form-control">
+               
+               <br>
                 <button type="submit" class="btn btn-success guardar">Guardar</button>
                 <a href="/clientes" class="btn btn-danger">Cancelar</a>
             </div>
         </form>
-    </div>
-@section('script')
-<script type="text/javascript">
-$('tbody').delegate('.quantity','keyup',function(){
-    var tr = $(this).parent().parent();
-    var quantity = tr.find('.quantity').val();
-});
+    </div>            
 
-function total(){
-    var total=0;
-    $('.amount').each(function(i,e){
-        var amount=$(this).val() - 0;
-        total += amount;
-    });
-    $('.total').html(total + ".00 tk");
-}
-$('.addRow').on('click',function(){
-    addRow();
-});
+    
 
-function addRow(){
-    var tr = '<tr>'+
-    '<td><input type="number" max="99999999" step="1" name="numero[]" required="" class="form-control" placeholder="99999999"></td>'+
-    '<td class="remover"><a href="#" class="remove"><i class="fas fa-minus-circle"></i></a></td>'+
-    '</tr>';
-    $('tbody').append(tr);
-};
+                <!-- Inicio tabla telefono -->
+                
 
-$('body').on('click','.remove',function(){
-    var last = $('tbody tr').length;
-    if(last == 1){
-        alert("No es posible remover la última fila");
-    }else{
-        $(this).parent().parent().remove();
-    }
-});
-</script>
-@endsection
 @endauth
 @endsection

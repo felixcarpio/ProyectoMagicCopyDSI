@@ -9,7 +9,7 @@
 <div class="container">
     <br>
     @foreach ($maquinaContacto as $key => $tabla)
-    <h1 class="principal"> Contacto: {{$tabla->connombre}} {{$tabla->apellido}} </h1>
+    <h1 class="principal"> Cliente: {{$tabla->connombre}} {{$tabla->apellido}} </h1>
     <br><br>
     <div class="centrado">
       <div class="boton">
@@ -26,7 +26,12 @@
       <div class="">
         <h3><strong>Correo: </strong><label>{{$tabla->correo}}</label></h3>
       </div>
-  
+      <div class="">
+      
+     
+       
+
+      
       <div class="derecha">
         <h3><strong>Categoria: </strong><label>{{$tabla->catnombre}}</label></h3>  
       </div>

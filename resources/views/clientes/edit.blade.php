@@ -21,12 +21,31 @@ Editar Cliente
             <input type="text" name="correo" class="form-control" value="{{$cliente->correo}}">
             <label class="col-form-label">DUI de Cliente: </label>
             <input type="text" name="dui" class="form-control" value="{{$cliente->dui}}">
-            <label class="col-form-label">Nombre de Empresa: </label>
-            <input type="text" name="nombre_empresa" class="form-control" value="{{$cliente->nombre_empresa}}">
             <label class="col-form-label">Dirección de Cliente: <span style="color:red">*</span></label>
             <input type="text" name="direccion" class="form-control" value="{{$cliente->direccion}}">
+            <label class="col-form-label">Nombre de Empresa: </label>
+            <input type="text" name="nombre_empresa" class="form-control" value="{{$cliente->nombre_empresa}}">
+            <label class="col-form-label">Giro de la empresa: </label>
+            <input type="text" name="giro" class="form-control" value="{{$cliente->giro}}">
+            <label class="col-form-label">NIT: </label>
+            <input type="text" name="nit" class="form-control" value="{{$cliente->nit}}">
+            <label class="col-form-label">Registro: </label>
+            <input type="text" name="registro" class="form-control" value="{{$cliente->registro}}">
+            <label class="col-form-label">Telefono: <span style="color:red">*</span></label>
+            <input type="text" name="telefono" class="form-control" value="{{$cliente->telefono}}">
+            <label class="col-form-label">Telefono: </label>
+            <input type="text" name="telefono2" class="form-control" value="{{$cliente->telefono2}}">
 
-            <!-- Inicio tabla telefono -->
+
+            <br>
+                <button type="submit" class="btn btn-success guardar">Guardar</button>
+                <a href="/clientes" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+    </div>            
+
+
+            <!-- Inicio tabla telefono 
             <div class="form-group">
                 <label class="col-form-label">Teléfono: <span style="color:red">*</span></label>
             </div>
@@ -48,7 +67,7 @@ Editar Cliente
         <button type="submit" class="btn btn-success guardar">Actualizar</button>
         <a href="/clientes" class="btn btn-danger">Cancelar</a>
         </div>
-    </form>
+    </form>-->
 </div>
 @endauth
 @endsection
