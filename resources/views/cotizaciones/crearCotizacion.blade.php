@@ -31,13 +31,14 @@
       </div>
       <div class="sublimacion destacado">
         <h3 class="nombre-destacados">SUBLIMACIONES</h3>
-        <a href="#"><img src="" class="imagen" id="imagen-sublimacion"></a>
+        <a href="{{ route('reserva.categoria.mostrar.unica', 7) }}"><img src="" class="imagen" id="imagen-sublimacion"></a>
 
       </div>
     </div>
 
   </div>
   <div class="container">
+    <div id="mapa" class="mapa"></div>
     <hr/>
     <div class="cotizacion">
       <h1 class="principal">HAZ TU COTIZACION</h1>
@@ -86,6 +87,8 @@
   <script src="{{ asset('js/highlight.min.js') }}" > </script>
   <script src="{{ asset('js/slick.js') }}" type="text/javascript"></script>
   <script src="{{ asset('js/bootstrap-4.3.1.min.js') }}"> </script>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <script src="{{ asset('js/map.js') }}"> </script>
   <script>
 
   correo = document.getElementById("correo");

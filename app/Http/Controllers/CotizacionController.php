@@ -17,15 +17,9 @@ class CotizacionController extends Controller
   */
   public function index()
   {
-    //
+
     $cotizaciones = Cotizacion::all();
-    $eventos = DB::table('eventos')->whereMonth('fecha_evento','11')->whereYear('fecha_evento', date("Y"))->get();
-    
-    $sum = 0;
-    foreach ($eventos as $evento) {
-        $sum = $evento->cantidad_personas + $sum; 
-    }
-    dd($sum);
+    $eventos = Evento::all();
     return view('cotizaciones.verCotizaciones', compact('cotizaciones', 'eventos'));
 
   }
@@ -150,7 +144,6 @@ class CotizacionController extends Controller
       if ($cotizacionEvento->codigo == $codigo) {
         $evento = Evento::find($cotizacionEvento->id);
         $clasificaciones =  Clasificacion::all();
-        echo "entre a evento";
 
         return view('cotizaciones.verEvento', compact('evento','clasificaciones'));
       }
@@ -212,7 +205,6 @@ class CotizacionController extends Controller
     foreach ($cotizacionesEventos as $cotizacionEvento) {
       if ($cotizacionEvento->codigo == $codigo) {
         $evento = Evento::find($cotizacionEvento->id);
-        echo "entre a evento";
         $evento->delete();
 
         return redirect('cotizaciones')->with('success', 'Cotizacion Evento Eliminado');

@@ -9,6 +9,9 @@ use App\Producto;
 use Illuminate\Http\Request;
 use PDF;
 use Carbon\Carbon;
+use Mail;
+use Session;
+use Redirect;
 
 class ReservaController extends Controller
 {
@@ -76,6 +79,16 @@ class ReservaController extends Controller
 
         $data = ['title' => 'Reserva'];
         $pdf = PDF::loadView('reservas.pdf', compact('reservaProductos'), compact('reservas'));
+
+        $productos = Producto::all();
+
+        Mail::send(['reservas.categoria'=>'mail'], $productos->all(), function($message) {
+          $message->to('orellanadennis12@gmail.com', 'Tutorials Point')->subject
+             ('Nueva Reserva Recibida');
+          $message->from('orellanadennis12@gmail.com','MAGIC COPY');
+       });
+
+        // dd($data);
         return $pdf->download('reserva.pdf');
     }
     public function datosPDF()
@@ -98,6 +111,7 @@ class ReservaController extends Controller
       ->select('reservas.precio_sin_descuento', 'reservas.nombre', 'reservas.correo_comprador')
       ->where('reservas.codigo_reserva', $ultimo[0]->codigo_reserva)
       ->get()->toArray();
+
 
       return view('reservas.pdf', compact('reservaProductos','reservas'));
     }
@@ -173,6 +187,12 @@ class ReservaController extends Controller
           $reserva->productos()->attach($datos);
         }
       }
+
+      // Mail::send('reservas.pdf',$request->all(), function($msj){
+      //     $msj->subject('Ha recibido una nueva cotizacion');
+      //     $msj->to('orellanadennis12@gmail.com');
+      // });
+
       // self::datosPDF($codigoReserva);
       // self::generatePDF58();
       return redirect('/reserva/pdf/ver');
