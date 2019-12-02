@@ -15,9 +15,11 @@
 
   <main>
     <div class="container">
-      <div class="row mt-3">
+      <div class="row mt-2">
         <div class="col">
-          <h2 class="d-flex justify-content-center mb-3">Realizar Reserva</h2>
+          <h2 class="d-flex justify-content-center mb-1" >Detalle de Reserva</h2>
+          <label class="justify-content-center mb-3" style="width:400px;display:block">Politicas de Reserva : 
+            La reserva de productos tiene una validez de dos semanas, los productos deben ser retirados en la sucursal, en los horarios de atencion y pagos en efectivo, gracias por preferirnos</label>
           <form id="procesar-pago" action="#">
             <div class="form-group row">
               <label for="cliente" class="col-12 col-md-2 col-form-label h2">Cliente :</label>
@@ -76,6 +78,23 @@
                 </tr>
 
               </table>
+              <div class="justify-content-center mb-3" style="width:400px;display:block">
+                <br>
+                Sucursal: Avenida L-C Poligono A, Cd Merliot
+                <br>
+                <br>
+                Horario:
+                <br>
+                Lunes a Viernes 6:00-18:00
+                <br>
+                Sabado          6:00-18:00
+                <br>
+                Domingo Cerrado
+                <br>
+                <br>
+                email: magiccopysv@gmail.com
+                telefono: 2278-1886
+              </div>
               <a href="/pdfImpreso">Crear PDf</a>
             </div>
           </div>

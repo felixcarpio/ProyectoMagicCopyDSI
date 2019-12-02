@@ -10,14 +10,14 @@
         <div class="form-group row">
           <label for="cliente" class="col-12 col-md-2 col-form-label h2">Cliente :</label>
           <div class="col-12 col-md-10">
-            <input type="text" class="form-control" id="cliente"
+            <input type="text" name="nombre" class="form-control" id="cliente"
             placeholder="Ingresa nombre cliente" required>
           </div>
         </div>
         <div class="form-group row">
           <label for="email" class="col-12 col-md-2 col-form-label h2">Correo :</label>
           <div class="col-12 col-md-10">
-            <input type="email" class="form-control" id="correo" placeholder="Ingresa tu correo" required>
+            <input type="email" name="correo" class="form-control" id="correo" placeholder="Ingresa tu correo" required>
           </div>
         </div>
 
