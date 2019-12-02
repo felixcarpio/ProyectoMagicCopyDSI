@@ -25,7 +25,8 @@ class MaquinaController extends Controller
       ->join('clientes', 'cliente_maquina.cliente_id', 'clientes.id')
       ->join('maquinas', 'cliente_maquina.maquina_id', 'maquinas.id')
       ->join('categorias','maquinas.categoria_id','categorias.id')
-      ->select('maquinas.id', 'clientes.nombre AS con_nombre', 'categorias.nombre', 'maquinas.marca', 'maquinas.modelo', 
+      ->select('maquinas.id', 'clientes.nombre AS con_nombre', 'clientes.telefono',
+      'clientes.nombre_empresa AS empresa', 'clientes.giro', 'categorias.nombre', 'maquinas.marca', 'maquinas.modelo', 
       'maquinas.serie', 'maquinas.contador', 'maquinas.descripcion')
       ->get();
         
