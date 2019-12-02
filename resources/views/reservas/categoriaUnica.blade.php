@@ -33,11 +33,10 @@
               </div>
               <div class="footerIzquierda">
                 <div class="input">
-                    <input type="number" name="cantidad" min="1" class="cantidad" value="0">
                     @if ($producto->precio_con_descuento != NULL)
-                      <label class="precioDescuento">{{$producto->precio_con_descuento}}</label>
+                      <label class="precio precioDescuento">{{$producto->precio_con_descuento}}</label>
                       <br>
-                      <label class="precio eliminado">{{$producto->precio}}</label>
+                      <label class="eliminado">{{$producto->precio}}</label>
                     @else
                         <label class="precio">{{$producto->precio}}</label>
                     @endif
