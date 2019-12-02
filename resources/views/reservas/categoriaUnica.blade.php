@@ -51,7 +51,7 @@
           <p>no hay productos</p>
         @endforelse
       </div>
-
+{{-- probando nuevamente git --}}
     </div>
 </div>
 
