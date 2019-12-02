@@ -208,17 +208,25 @@
     var tbl = document.getElementById("datatable");
     if (tbl != null) {
         for (var i = 0; i < tbl.rows.length; i++)
-            tbl.rows[i].onclick = function () { getval(this.cells[0]);};
+            tbl.rows[i].onclick = function () { getval(this);};
+
     }
     function getval(cel) {
-      
-        var sel = document.getElementById('cliente_id');
-        var opts = sel.options;
-        for (var opt, j = 0; opt = opts[j]; j++) {
-            if (opt.value == cel.innerHTML) {
+        cel1 = cel.cells[1];
+        var sel = document.getElementById('cliente_id[]');
+        for (var opt, j = 1; opt = sel[j]; j++) {
+            if (opt.innerHTML.trim() == cel1.innerHTML.trim()) {
                 sel.selectedIndex = j;
                 break;
-            }
+            } 
+        }
+        cel2 = cel.cells[2];
+        var sel = document.getElementById('categoria_id[]');
+        for (var opt, j = 1; opt = sel[j]; j++) {
+            if (opt.innerHTML.trim() == cel2.innerHTML.trim()) {
+                sel.selectedIndex = j;
+                break;
+            } 
         }
     }
 </script>
