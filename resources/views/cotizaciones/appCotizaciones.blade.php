@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/css/slick.css">
   <link rel="stylesheet" href="/css/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/slick-theme.css">
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 </head>
 <body>
 
@@ -150,6 +150,7 @@ aria-expanded="false"></img>
 <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}" > </script>
 <script src="{{ asset('js/popper.min.js') }}"> </script>
 <script src="{{ asset('js/bootstrap-4.3.1.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
 </body>

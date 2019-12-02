@@ -51,7 +51,7 @@
 
 
 
-      <a href="#" class="btn btn-success ingresar" >
+      <a href="/crearcotizacion" class="btn btn-success ingresar" >
         Ingresar Cotizacion
       </a>
       <a href="/" class="btn btn-info"> Regresar </a>

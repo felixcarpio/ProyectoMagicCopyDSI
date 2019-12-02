@@ -53,33 +53,33 @@
 
 <!-- Start Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header rojo">
-      <h5 class="modal-title" id="exampleModalLabel">Eliminar Reserva</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header rojo">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Reserva</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/reservas" method="POST" id="deleteForm">
+  
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+  
+        <div class="modal-body">
+  
+            <input type="hidden" name="_method" value="DELETE">
+              <p>Esta seguro de eliminar la reserva? </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-danger">Si, Eliminar Reserva</button>
+        </div>
+      </form>
     </div>
-    <form action="/reserva" method="POST" id="deleteForm">
-
-      {{ csrf_field() }}
-      {{ method_field('DELETE') }}
-
-      <div class="modal-body">
-
-          <input type="hidden" name="_method" value="DELETE">
-            <p>Esta seguro de eliminar la reserva? </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-danger">Si, Eliminar Reserva</button>
-      </div>
-    </form>
   </div>
-</div>
-</div>
-<!-- End Delete Modal -->
+  </div>
+  <!-- End Delete Modal -->
 
   <div class="container">
     <br>
@@ -111,19 +111,18 @@
         <tbody>
               @foreach ($reservas as $reserva)
             <tr>
-
-              <td class="ocultar"> {{ $reserva->id }} </td>
-              <td> {{ $reserva->codigo_reserva }} </td>
-              <td> {{ $reserva->nombre }} </td>
-              <td> {{ $reserva->fecha_solicitud }} </td>
+              <td class="ocultar">{{$reserva->id}} </td>
+              <td>{{$reserva->codigo_reserva}} </td>
+              <td>{{$reserva->nombre}} </td>
+              <td>{{date('d/m/Y', strtotime($reserva->fecha_solicitud))}}</td>
               @foreach ($estados as $estado)
                 @if ($reserva->estado_reserva_id == $estado->id)
                    <td> {{ $estado->nombre }} </td>
                 @endif
               @endforeach
               <td>
-                <a href="{{ route('reserva.mostrar', $reserva->id) }}" class="detalle view"><i class="fas fa-eye"></i></a>
-                <a href="#"><i class="detalle fas fa-file-pdf"></i></a>
+                <a href="{{route('reserva.mostrar', $reserva->id)}}" class="detalle view"><i class="fas fa-eye"></i></a>
+              <a href="/reserva/pdf/ver/{{$reserva->codigo_reserva}}"><i class="detallepdf fas fa-file-pdf"></i></a>
                 <a href="#" class="edit actualizar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="delete borrar"><i class="fas fa-trash-alt"></i></a>
                </td>

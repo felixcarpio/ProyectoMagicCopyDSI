@@ -96,7 +96,9 @@
                 Email: magiccopysv@gmail.com
                 Telefono: 2278-1886
               </div>
-              <a href="/pdfImpreso">Crear PDf</a>
+              @foreach ($reservas as $reserva)
+              <a href="/pdfImpresoReserva/{{$reserva->codigo_reserva}}">Crear PDf</a>
+              @endforeach
             </div>
           </div>
         </form>

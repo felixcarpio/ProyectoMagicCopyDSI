@@ -308,3 +308,6 @@ div.destacado{
 #cargando {
     display: none;
 }
+div.mapa{
+  height: 420px;
+}

@@ -61,8 +61,8 @@ Route::get('/eventoPrincipal', 'EventoController@create')->name('evento.principa
 
 Route::get('/reservas', 'ReservaController@index');
 Route::put('reservas/{reserva}', 'ReservaController@update')->name('reserva.actualizar');
-Route::delete('/reservas/{reserva}','ReservaController@destroy')->name('reserva.eliminar');
 Route::get('/reservas/{reserva}','ReservaController@show')->name('reserva.mostrar');
+Route::delete('/reservas/{reserva}','ReservaController@destroy')->name('reserva.elimina');
 Route::get('/reserva/categoria','ReservaController@reservaCategoria')->name('reserva.categoria.mostrar');
 Route::get('/reserva/categoriaUnica/{tipo}','ReservaController@reservaCategoriaUnica')->name('reserva.categoria.mostrar.unica');
 Route::get('/reserva/reservaConfirmacion', 'ReservaController@create')->name('reserva.guardar');
@@ -70,6 +70,9 @@ Route::get('/reserva/reservaConfirmacion', 'ReservaController@create')->name('re
 Route::post('/reserva/pdf','ReservaController@store')->name('reserva.almacenar');
 Route::get('/reserva/pdf/ver', 'ReservaController@datosPDF');
 Route::get('pdfImpreso','ReservaController@generatePDF58');
+
+Route::get('/reserva/pdf/ver/{reserva}', 'ReservaController@datosPDFReserva');
+Route::get('pdfImpresoReserva/{reserva}','ReservaController@generatePDF58Reserva');
 
 // Route::get('pdfImpreso', function(){
 //   $pdf = PDF::loadView('reservas.pdf');
