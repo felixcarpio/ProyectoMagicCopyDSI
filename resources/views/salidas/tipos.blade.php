@@ -1,10 +1,7 @@
 @extends('layouts.app')
 @section('nombre')Tipos @endsection
 
-@section('scripts')
-
-
-@endsection
+@section('content')
 @auth
 
 <!-- Modal Ingresar -->

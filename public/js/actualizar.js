@@ -46,7 +46,8 @@ $(document).ready(function () {
         $('#precioConDescuento').val(data[5]);
         $('#existencias').val(data[6]);
         $('#marcas_id').val(data[7]);
-        $('#proveedor_id').val(data[8]);
+        $('#categorias_id').val(data[8]);
+        $('#proveedor_id').val(data[9]);
 
         $('#editForm').attr('action', '/producto/'+data[0]);
         $('#editModal').modal('show');

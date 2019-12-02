@@ -37,44 +37,32 @@
               <table class="table" id="lista-compra">
                 <thead>
                   <tr>
-                    <th scope="col">Imagen</th>
+                    {{-- <th scope="col">Imagen</th> --}}
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Sub Total</th>
-                    <th scope="col">Eliminarr</th>
+                    {{-- <th scope="col">Eliminarr</th> --}}
                   </tr>
 
                 </thead>
                 <tbody>
                   @foreach ($reservaProductos as $reservaProducto)
                     <tr>
-                      <td>{{$reservaProducto->imagen}}</td>
+                      {{-- <td>{{$reservaProducto->imagen}}</td> --}}
                       <td>{{$reservaProducto->nombre}}</td>
-                      <td>{{$reservaProducto->precio}}</td>
-                      <td>1</td>
+                      @if($reservaProducto->precio_con_descuento != NULL)
+                        <td>{{$reservaProducto->precio_con_descuento}}</td>
+                      @else
+                        <td>{{$reservaProducto->precio}}</td>
+                     @endif
+                      <td>{{$reservaProducto->cantidad_ordenada}}</td>
+                      <td>{{$reservaProducto->sub_total}}</td>
                     </tr>
 
                   @endforeach
 
-
-
                 </tbody>
-                <tr>
-                  <th colspan="4" scope="col" class="text-right">SUB TOTAL :</th>
-                  <th scope="col">
-                    <p id="subtotal"></p>
-                  </th>
-                  <!-- <th scope="col"></th> -->
-                </tr>
-                <tr>
-                  <th colspan="4" scope="col" class="text-right">IVA :</th>
-                  <th scope="col">
-                    <p id="igv">
-
-                  </th>
-                  <!-- <th scope="col"></th> -->
-                </tr>
                 <tr>
                   <th colspan="4" scope="col" class="text-right">TOTAL :</th>
                   <th scope="col">

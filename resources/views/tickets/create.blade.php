@@ -110,12 +110,13 @@ Ingresar Ticket
 @section('script')
 <script src="{{ asset('js/jquery-1.12.4.js') }}"></script>
 <script src="{{ asset('js/jquery-ui.js') }}"></script>
+<script src="{{ asset('js/conf-datepicker.js') }}"></script>
 <script>
 $(function() {
     $(".datepicker").datepicker({
         dateFormat: '{{ config('app.date_format_js') }}',
     });
-});
+}); 
 </script>
 <script type="text/javascript">
     $('tbody').delegate('.precio_venta, .cantidad', 'keyup',function(){

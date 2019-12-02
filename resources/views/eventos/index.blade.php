@@ -75,7 +75,7 @@
           <div class="izquierda">
             <div class="form-group">
                 <label class="">Fecha de Evento</label>
-                <input type="text" name="fechaEvento" class="form-control datepicker alto" id="fechaEvento" placeholder="dd/MM/aaaa" required>
+                <input name="fechaEvento" class="form-control datepicker alto" id="fechaEvento" placeholder="dd/MM/aaaa" required>
             </div>
 
             <div class="form-group">
@@ -216,17 +216,12 @@
   </div>
   <script src="{{ asset('js/bootstrap-4.3.1.min.js') }}"> </script>
   <script src="{{ asset('js/jquery-1.12.4.js') }}"></script>
+  
+  
   <script src="{{ asset('js/jquery-ui.js') }}"></script>
-
   {{-- <script src="{{ asset('js/jquery-3.3.1.min.js')}}"></script> --}}
-  {{-- <script src="{{ asset('js/jquery.min.js')}}"></script> --}}
-  <script>
-      $(function() {
-          $(".datepicker").datepicker({
-              dateFormat: '{{ config('app.date_format_js') }}',
-          });
-      });
-  </script>
+  <script src="{{ asset('js/conf-datepicker.js')}}"></script>
+ 
   <script>
 
   correo = document.getElementById("correo");

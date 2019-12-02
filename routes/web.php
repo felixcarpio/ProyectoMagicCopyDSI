@@ -64,10 +64,12 @@ Route::put('reservas/{reserva}', 'ReservaController@update')->name('reserva.actu
 Route::delete('/reservas/{reserva}','ReservaController@destroy')->name('reserva.eliminar');
 Route::get('/reservas/{reserva}','ReservaController@show')->name('reserva.mostrar');
 Route::get('/reserva/categoria','ReservaController@reservaCategoria')->name('reserva.categoria.mostrar');
+Route::get('/reserva/categoriaUnica/{tipo}','ReservaController@reservaCategoriaUnica')->name('reserva.categoria.mostrar.unica');
 Route::get('/reserva/reservaConfirmacion', 'ReservaController@create')->name('reserva.guardar');
+
 Route::post('/reserva/pdf','ReservaController@store')->name('reserva.almacenar');
-Route::get('pdfImpreso','ReservaController@generatePDF58');
 Route::get('/reserva/pdf/ver', 'ReservaController@datosPDF');
+Route::get('pdfImpreso','ReservaController@generatePDF58');
 
 // Route::get('pdfImpreso', function(){
 //   $pdf = PDF::loadView('reservas.pdf');
@@ -95,6 +97,10 @@ Route::post('/salida/verificar', 'SalidaController@verificarSalida');
 Route::post('/salida/guardar', 'SalidaController@store');
 Route::resource('/salida', 'SalidaController');
 Route::get('/versalidas/{pedido}','SalidaController@show')->name('salida.ver');
+Route::get('/datosanioactual', 'SalidaController@ObtenerTotalVentasAnioActual');
+Route::get('/facturaSencilla','SalidaController@generarFacturaSencilla')->name('facturaSencilla'); 
+Route::get('/facturaConsumidorFinal','SalidaController@generarFacturaConsumidorFinal')->name('facturaConsumidorFinal'); 
+Route::get('/creditoFiscal','SalidaController@generarCreditoFiscal')->name('creditoFiscal'); 
 
 
 // -------------- RUTAS MAQUINAS -------------
@@ -122,3 +128,5 @@ Route::put('/contac/ingresar', 'ContactoController@store');
 Route::get('/contac/{contacto}','ContactoController@show')->name('contacto.ver');
 Route::get('/contac/editar/{contacto}', 'ContactoController@actualizar')->name('contacto.actualizar');
 Route::put('/contac/editar/{contacto}', 'ContactoController@update')->name('contacto.update');
+
+

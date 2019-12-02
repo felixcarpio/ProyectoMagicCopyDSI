@@ -29,6 +29,16 @@ class ReservaController extends Controller
         return view('reservas.categoria' , compact('productos'));
     }
 
+    public function reservaCategoriaUnica($tipoProducto)
+    {
+      $productos = DB::table('productos')
+      ->select('productos.id','productos.imagen', 'productos.nombre', 'productos.precio', 'productos.precio_con_descuento', 'productos.existencias', 'productos.existencias', 'productos.descripcion')
+      ->where('productos.categorias_id', $tipoProducto)
+      ->get()->toArray();
+
+        return view('reservas.categoriaUnica' , compact('productos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -53,7 +63,7 @@ class ReservaController extends Controller
       $reservaProductos = DB::table('productos')
       ->join('producto_reserva','productos.id','producto_reserva.producto_id')
       ->join('reservas', 'producto_reserva.reserva_id', 'reservas.id')
-      ->select('productos.imagen', 'productos.nombre', 'productos.precio')
+      ->select('productos.imagen', 'productos.nombre', 'productos.precio','producto_reserva.cantidad_ordenada')
       ->where('reservas.codigo_reserva', $ultimo[0]->codigo_reserva)
       ->get()->toArray();
 
@@ -79,10 +89,9 @@ class ReservaController extends Controller
       $reservaProductos = DB::table('productos')
       ->join('producto_reserva','productos.id','producto_reserva.producto_id')
       ->join('reservas', 'producto_reserva.reserva_id', 'reservas.id')
-      ->select('productos.imagen', 'productos.nombre', 'productos.precio')
+      ->select('productos.imagen', 'productos.nombre', 'productos.precio','productos.precio_con_descuento', 'producto_reserva.cantidad_ordenada','producto_reserva.sub_total')
       ->where('reservas.codigo_reserva', $ultimo[0]->codigo_reserva)
       ->get()->toArray();
-
 
       $reservas = DB::table('reservas')
       ->select('reservas.precio_sin_descuento')
@@ -100,7 +109,7 @@ class ReservaController extends Controller
      */
     public function store(Request $request)
     {
-      // dd($request);
+      //  dd($request);
       $this->validate($request,[
         // 'codigo'=>'required',
         'inputTotal'=>'required'
@@ -153,6 +162,7 @@ class ReservaController extends Controller
             $request->productoInput[$iteracion] => [
               'reserva_id' =>$reserva->id,
               'cantidad_ordenada'=>$request->cantidadInput[$iteracion],
+              'sub_total'=>$request->subtotalInput[$iteracion],
               ]
           );
           $reserva->productos()->attach($datos);
