@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Caffeinated\Shinobi\Models\Role;
 
 class UserController extends Controller
 {
@@ -71,19 +72,17 @@ class UserController extends Controller
         'telefono_usuario' => 'required',
         'roles_id' => 'required'
       ]);
-
-      $User = new User;
-      $User->username = $request->username;
-      $User->nombre = $request->nombre;
-      $User->apellido = $request->apellido;
-      $User->email = $request->email;
-      $User->password = Hash::make($request->password);
-      $User->activo = 1;
-      $User->direccion_usuario = $request->direccion_usuario;
-      $User->telefono_usuario = $request->telefono_usuario;
-      $User->roles_id = $request->roles_id;
+      $User                     = new User;
+      $User->username           = $request->username;
+      $User->nombre             = $request->nombre;
+      $User->apellido           = $request->apellido;
+      $User->email              = $request->email;
+      $User->password           = Hash::make($request->password);
+      $User->activo             = 1;
+      $User->direccion_usuario  = $request->direccion_usuario;
+      $User->telefono_usuario   = $request->telefono_usuario;
       $User->save();
-
+      $User->roles()->sync($request->roles_id);
       return redirect()->route('users.index')->with('success','El Usuario se ingresó correctamente');
     }
 
@@ -135,8 +134,8 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->direccion_usuario = $request->input('direccion_usuario');
         $user->telefono_usuario = $request->input('telefono_usuario');
-        $user->roles_id = $request->roles_id;
         $user->save();
+        $user->roles()->sync($request->roles_id);
         return redirect('users')->with('success','El Usuario se actualizó correctamente');
     }
 

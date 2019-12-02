@@ -41,7 +41,7 @@
     </main>
   </div>
 
-  <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}" > </script>
+  <script src="{{ asset('js/jquery-3.3.1.min.js') }}" > </script>
   <script src="{{ asset('js/popper.min.js') }}"> </script>
   <script src="{{ asset('js/bootstrap-4.3.1.min.js') }}"> </script>
   <script src="{{ asset('js/datatables-jquery.min.js') }}"> </script>
