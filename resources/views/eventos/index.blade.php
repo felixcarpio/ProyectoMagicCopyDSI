@@ -64,6 +64,20 @@
 
 <body>
   <div class="container">
+  
+    
+      <div class="row mt-4 eventos">
+          @foreach ($imagenesevento as $imagenevento)
+        <div class="col-md-4 col-sm-6 col-xs-12 evento">
+        <div><h2>{{$imagenevento->nombre}}</h2></div>
+          <div >
+              <img style="width:250px;height:250px" class="imagenPublicidad" src="/images/imageneseventos/{{$imagenevento->imagen}}">
+          </div>
+      </div>
+      
+  @endforeach
+  </div>
+
     <br>
     <hr/>
     <div class="cotizacion">

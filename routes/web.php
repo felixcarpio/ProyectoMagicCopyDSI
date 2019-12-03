@@ -133,3 +133,5 @@ Route::get('/contac/editar/{contacto}', 'ContactoController@actualizar')->name('
 Route::put('/contac/editar/{contacto}', 'ContactoController@update')->name('contacto.update');
 
 
+Route::resource('/imagenes_evento','ImagenEventoController');
+// Route::get('/producto/{producto}','ProductoController@show')->name('producto.mostrar');
