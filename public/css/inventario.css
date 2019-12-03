@@ -27,10 +27,10 @@
   margin: auto;
 }
 
-/*
+/* 
  botones
  */
- .btnposi{
+ .btnpos{
      position:absolute;
      width:10%; left:75%;
      text-align:center;

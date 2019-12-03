@@ -44,3 +44,11 @@
   width:70%;
   margin-left: 3%;
 }
+#btn-factura{
+  background-color: rgb(7, 163, 25);
+  border-color: rgb(7, 163, 25);
+}
+#btn-factura:hover{
+  background-color: rgb(7, 163, 25);
+  border-color: rgb(7, 163, 25);
+}

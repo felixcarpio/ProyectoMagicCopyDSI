@@ -88,8 +88,9 @@
 </script>
 @section('script')
 <script src="{{ asset('js/jquery-1.12.4.js') }}"></script>
-<script src="{{ asset('js/jquery-ui.js') }}"></script>
-<script src="{{ asset('js/pedido-inventario.js') }}"></script>
+<script src="{{ asset('js/jquery-ui.js') }}"></script>    
+<script src="{{ asset('js/conf-datepicker.js') }}"></script>
+<script src="{{ asset('js/pedido-inventario.js') }}"></script> 
 @endsection
 @endsection
 @endauth

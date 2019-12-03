@@ -1,0 +1,9 @@
+#factura-sencilla{
+  right: 70%;
+  position: absolute;
+}
+#abajo{
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+}

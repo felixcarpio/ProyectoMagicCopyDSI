@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  @auth 
+  {{-- @auth  --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -55,6 +55,15 @@
                     <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
                 @endforeach
 
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Categoria*</label>
+              <select name="categorias_id" class="form-control">
+                @foreach ($categorias as $categoria)
+                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+                @endforeach
               </select>
             </div>
 
@@ -131,12 +140,20 @@
 
 
           <div class="form-group">
-            <label>Marca</label>
+            <label>Marca*</label>
             <select name="marcas_id" id="marcas_id[]" class="form-control">
               @foreach ($marcas as $marca)
                   <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
               @endforeach
+            </select>
+          </div>
 
+          <div class="form-group">
+            <label>Categoria*</label>
+            <select name="categorias_id" id="categorias_id[]" class="form-control">
+              @foreach ($categorias as $categoria)
+                  <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
+              @endforeach
             </select>
           </div>
 
@@ -233,6 +250,7 @@
             <th scope="col" class="colorth">Precio Con Descuento</th>
             <th scope="col" class="colorth">Existencias</th>
             <th scope="col" class="colorth">Marca</th>
+            <th scope="col" class="colorth">Categoria</th>
             <th scope="col" class="colorth ocultar">Proveedor</th>
             <th scope="col" class="colorth ocultar">Imagen</th>
             <th scope="col" class="colorth">Accion</th>
@@ -252,6 +270,11 @@
               @foreach ($marcas as $marca)
                 @if ($articulos->marcas_id == $marca->id)
                    <td> {{ $marca->nombre }} </td>
+                @endif
+              @endforeach
+              @foreach ($categorias as $categoria)
+                @if ($articulos->categorias_id == $categoria->id)
+                   <td> {{ $categoria->nombre }} </td>
                 @endif
               @endforeach
               <td class="ocultar">
@@ -278,6 +301,6 @@
   <script src="js/actualizar.js"></script>
 @endsection
 
-@endauth
+{{-- @endauth --}}
 
 @endsection
