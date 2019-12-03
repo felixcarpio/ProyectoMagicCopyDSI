@@ -146,3 +146,5 @@ Route::get('/pdfInventario','InventarioController@generarReporteInventario')->na
 Route::get('/reportes', function () {
   return view('reportes');
 });
+
+Route::get('/ticketPDF/{id}', 'TicketController@pdf')->name('tickets.pdf');
