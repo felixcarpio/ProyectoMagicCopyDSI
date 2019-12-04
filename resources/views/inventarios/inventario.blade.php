@@ -65,6 +65,7 @@ Inventario
 
         <thead class="table-dark">
           <tr align="center"> 
+            <th scope="col" class="colorth ocultar" align="center">Fecha</th>
             <th scope="col" class="colorth" align="center">Fecha</th>
             <th scope="col" class="colorth" align="center">Producto</th>
             <th scope="col" class="colorth" align="center">Cantidad</th>
@@ -77,6 +78,7 @@ Inventario
           @if($inventario)
           @foreach($inventario as $clave => $valor)
           <tr>
+          <td align="center" class="ocultar">{{ date('d/m/Y h:i:s', strtotime($inventario[$clave]->fechaCreacion)) }}</td>
           <td align="center">{{ date('d/m/Y', strtotime($inventario[$clave]->fecha)) }}</td>
           <td align="center">{{$inventario[$clave]->nombre}}</td>
           <td align="center"> <label class="cantidad{{$clave}}">{{$inventario[$clave]->cantidad}}</label> </td>
@@ -84,7 +86,6 @@ Inventario
           <td align="center"> <label class="costo{{$clave}}">{{$inventario[$clave]->costo}}</label> </td>
           <td align="center"> <label class="label{{$clave}} ">{{ number_format($inventario[$clave]->existencias * $inventario[$clave]->costo, 2) }}</label> </td>
         </tr>
-
       @endforeach
     @else
     <h6>No existen datos de inventario</h6>

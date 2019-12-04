@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+*/ 
 
 Route::get('/', function () {
     return view('welcome');
@@ -132,6 +132,6 @@ Route::post('/reporteventas', 'SalidaController@obtenerVentas');
 Route::get('/reporteInventario', 'InventarioController@indexReporte');
 Route::post('/reporteInventario', 'InventarioController@reporteInventario');
 Route::get('/pdfInventario','InventarioController@generarReporteInventario')->name('reporteInventario');
-Route::get('/reportes', function () {
+Route::get('/reportes', function () { 
   return view('reportes');
 });

@@ -11,11 +11,13 @@
 <table>
 <thead class="table-dark">
   <tr align="center"> 
-    <th width="150px" scope="col" class="colorth" align="center">Fecha</th>
+    <th width="100px" scope="col" class="colorth" align="center">Fecha</th>
     <th width="100px" scope="col" class="colorth" align="center">Correlativo</th>
     <th width="100px" scope="col" class="colorth" align="center">Tipo de Factura</th>
-    <th width="150px" scope="col" class="colorth" align="center">Total</th>
-    <th width="150px" scope="col" class="colorth" align="center">Total con IVA</th>
+    <th width="100px" scope="col" class="colorth" align="center">Producto</th>
+    <th width="100px" scope="col" class="colorth" align="center">Cantidad</th>
+    <th width="100px" scope="col" class="colorth" align="center">Total</th>
+    <th width="100px" scope="col" class="colorth" align="center">Total con IVA</th>
   </tr>
 </thead>
 <tbody id="tabla">
@@ -25,8 +27,10 @@
   <td align="center">{{ date('d/m/Y', strtotime($ventas[$clave]->fecha_emision)) }}</td>
   <td align="center">{{$ventas[$clave]->correlativo_factura}}</td>
   <td align="center">{{$ventas[$clave]->tipo_factura}}</td>
-  <td align="center"> {{$ventas[$clave]->total}}</td>
-  <td align="center"> {{$ventas[$clave]->total_iva}} </td>
+  <td align="center">{{$ventas[$clave]->nombre}}</td>
+  <td align="center">{{$ventas[$clave]->cantidad_vendida}}</td>
+  <td align="center"> ${{$ventas[$clave]->total}}</td>
+  <td align="center"> ${{$ventas[$clave]->total_iva}} </td>
 </tr>
 
 @endforeach

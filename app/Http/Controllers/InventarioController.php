@@ -51,14 +51,16 @@ class InventarioController extends Controller
     $pedidos = DB::table('pedido_producto')
       ->join('productos', 'pedido_producto.producto_id', 'productos.id')
       ->whereRaw('fecha_recibido is not null')
-      ->select('pedido_producto.fecha_recibido as fecha', 'pedido_producto.cantidad_ordenada as cantidad', 'productos.nombre as nombre', 'pedido_producto.existencias as existencias', 'pedido_producto.costo_unitario as costo')
+      ->select('pedido_producto.created_at as fechaCreacion','pedido_producto.fecha_recibido as fecha','productos.nombre as nombre', 'pedido_producto.cantidad_ordenada as cantidad',  'pedido_producto.costo_unitario as costo','pedido_producto.existencias as existencias')
+      ->orderByDesc('pedido_producto.created_at')
       ->get()->toArray();
     $salidas = DB::table('detalles')
       ->join('salidas', 'salidas.id', 'detalles.salida_id')
       ->join('pedido_producto', 'pedido_producto.id', 'detalles.pedido_producto_id')
       ->join('productos', 'pedido_producto.producto_id', 'productos.id')
-      ->select('pedido_producto.costo_unitario as costo', 'salidas.fecha_emision as fecha', 'productos.nombre as nombre', 'detalles.cantidad_vendida as cantidad', 'detalles.existencias', 'salidas.created_at as fechaCreacion')
+      ->select( 'salidas.created_at as fechaCreacion', 'salidas.fecha_emision as fecha',  'productos.nombre as nombre', 'detalles.cantidad_vendida as cantidad', 'pedido_producto.costo_unitario as costo','detalles.existencias')
       ->whereRaw('detalles.cantidad_vendida <> 0')
+      ->orderByDesc('salidas.created_at')
       ->get()->toArray();
     $datos = array_merge($pedidos, $salidas);
     $inventario = self::array_sort($datos, 'fechaCreacion', SORT_DESC);
@@ -72,7 +74,8 @@ class InventarioController extends Controller
       ->get();
     $inventario = self::obtenerInventario();
     $nombre = "todos los productos";
-    return view('inventarios.inventario', compact('inventario', 'productos', 'nombre'));
+    $cantidadActual = null;
+    return view('inventarios.inventario', compact('inventario', 'productos', 'nombre', 'cantidadActual'));
   }
 
   public function queryInventarioProducto($producto)
@@ -81,15 +84,17 @@ class InventarioController extends Controller
       ->join('productos', 'pedido_producto.producto_id', 'productos.id')
       ->where('productos.nombre', $producto)
       ->whereRaw('fecha_recibido is not null')
-      ->select('pedido_producto.fecha_recibido as fecha', 'pedido_producto.cantidad_ordenada as cantidad', 'productos.nombre as nombre', 'pedido_producto.existencias as existencias', 'pedido_producto.costo_unitario as costo')
+      ->select('pedido_producto.created_at as fechaCreacion','pedido_producto.fecha_recibido as fecha','productos.nombre as nombre', 'pedido_producto.cantidad_ordenada as cantidad',  'pedido_producto.costo_unitario as costo','pedido_producto.existencias as existencias')
+      ->orderByDesc('pedido_producto.created_at')
       ->get()->toArray();
     $salidas = DB::table('detalles')
       ->join('salidas', 'salidas.id', 'detalles.salida_id')
       ->join('pedido_producto', 'pedido_producto.id', 'detalles.pedido_producto_id')
       ->join('productos', 'pedido_producto.producto_id', 'productos.id')
-      ->select('pedido_producto.costo_unitario as costo', 'salidas.fecha_emision as fecha', 'productos.nombre as nombre', 'detalles.cantidad_vendida as cantidad', 'detalles.existencias', 'salidas.created_at as fechaCreacion')
+      ->select( 'salidas.created_at as fechaCreacion', 'salidas.fecha_emision as fecha',  'productos.nombre as nombre', 'detalles.cantidad_vendida as cantidad', 'pedido_producto.costo_unitario as costo','detalles.existencias')
       ->where('productos.nombre', $producto)
       ->whereRaw('detalles.cantidad_vendida <> 0')
+      ->orderByDesc('salidas.created_at')
       ->get()->toArray();
     $datos = array_merge($pedidos, $salidas);
     $inventario = self::array_sort($datos, 'fechaCreacion', SORT_DESC);
@@ -103,7 +108,8 @@ class InventarioController extends Controller
       ->get();
     $inventario = self::queryInventarioProducto($request->producto);
     $nombre = $request->producto;
-    return view('inventarios.inventario', compact('inventario', 'productos', 'nombre'));
+    $cantidadActual = -1;
+    return view('inventarios.inventario', compact('inventario', 'productos', 'nombre', 'cantidadActual'));
   }
 
   public function indexReporte()
@@ -173,8 +179,8 @@ class InventarioController extends Controller
       'inventario' => $inventario
     ];
 
-    $pdf = PDF::loadView('inventarios.reporte', $data);
-    return $pdf->download('inventario' . $producto . '.pdf');
+    $pdf = PDF::loadView('inventarios.reporte', $data); 
+    return $pdf->download('inventario-' . $producto .'-'.$anio. '.pdf');
   }
 
   public function reporteInventario(Request $request)

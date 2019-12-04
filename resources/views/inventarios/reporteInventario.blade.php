@@ -6,8 +6,16 @@
 @endsection
 @section('content')
 @auth
+<div class="form-group">
+  <label class="col-form-label">Seleccione el reporte que desea obtener <span style="color:red">*</span> </label>
+  <select class="custom-select" name="tipoReporte" id="tipoReporte">
+    <option value="Venta"> Venta </option>
+    <option selected value="Inventario"> Inventario </option>
+  </select>
+</div>
+<br><br>
 <h1>Filtros para reporte de inventario</h1>
-<form method="POST" action = "{{ action('InventarioController@reporteInventario') }}">
+<form method="POST" action="{{ action('InventarioController@reporteInventario') }}">
   {{ csrf_field() }}
 
   <div class="form-group">
@@ -27,19 +35,34 @@
   <div class="form-group">
     <label>Seleccione el año</label>
     <select class="custom-select" name="fecha">
-        <option disabled selected> Año</option>
-        <option> Todos los años</option>
-        @if($anios)
-          @foreach ($anios as $clave => $valor)
-            <option> {{ $anios[$clave]->fecha }} </option>
-          @endforeach
-        @else
-          <option>No existen salidas</option>
-        @endif
-      </select>
+      <option disabled selected> Año</option>
+      <option> Todos los años</option>
+      @if($anios)
+      @foreach ($anios as $clave => $valor)
+      <option> {{ $anios[$clave]->fecha }} </option>
+      @endforeach
+      @else
+      <option>No existen salidas</option>
+      @endif
+    </select>
   </div>
   <button type="submit" class="btn btn-success">Generar Reporte</button>
 
 </form>
+@section('script')
+<script>
+  $(function() {
+    $('#tipoReporte').on('change', function() {
+      var id = $(this).val()
+      if (id == "Venta") {
+        window.location = "/reporteventas"
+      } else if (id == "Inventario") {
+        window.location = "/reporteInventario"
+      }
+      return false
+    })
+  })
+</script>
+@endsection
 @endsection
 @endauth
