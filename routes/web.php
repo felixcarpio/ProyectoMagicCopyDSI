@@ -130,7 +130,6 @@ Route::resource('clientes','ClienteController');
 
 
 
-
 Route::get('/contac/ingresar', 'ContactoController@ingresar')->name('contacto.ingresarc');
 Route::put('/contac/ingresar', 'ContactoController@store');
 Route::get('/contac/{contacto}','ContactoController@show')->name('contacto.ver');
