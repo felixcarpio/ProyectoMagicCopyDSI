@@ -46,8 +46,8 @@ Route::get('/cotizaciones', 'CotizacionController@index');
 Route::delete('/cotizaciones/{cotizacion}','CotizacionController@destroy')->name('cotizacion.eliminar');
 Route::get('/cotizaciones/{cotizacion}','CotizacionController@show')->name('cotizacion.mostrar');
 Route::get('/cotizaciones/{evento}','CotizacionController@show')->name('evento.mostrar');
-Route::get('/crearcotizacion', 'CotizacionController@create')->name('cotizacion.crear');
-Route::get('/crearcotizacion', 'PromocionController@mostrar')->name('promocion.mostrar');
+Route::get('/libreria', 'CotizacionController@create')->name('cotizacion.crear');
+Route::get('/libreria', 'PromocionController@mostrar')->name('promocion.mostrar');
 
 // ------------------RUTA COTIZACION EVENTO -------------------
 

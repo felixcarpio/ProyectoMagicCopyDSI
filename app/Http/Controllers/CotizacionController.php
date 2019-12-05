@@ -113,7 +113,7 @@ class CotizacionController extends Controller
     $cotizacion->imagen = $nombreDeArchivoAlmacenar;
     $cotizacion->save();
 
-    return redirect('crearcotizacion')->with('success', 'La cotizacion fue enviada exitosamente');
+    return redirect('libreria')->with('success', 'La cotizacion fue enviada exitosamente');
   }
 
   /**
