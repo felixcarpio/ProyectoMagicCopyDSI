@@ -119,22 +119,12 @@ Route::resource('/telefono','TelefonoController');
 // ------------- RUTAS TICKETS ----------------
 Route::resource('tickets','TicketController');
 
-
 // ------------- RUTAS PIEZAS -----------------
 Route::resource('piezas','PiezaController');
+Route::get('/piezas/agregarPieza/{id}','PiezaController@create')->name('piezas.crear');
 
 // ------------- RUTAS CLIENTES -----------------
 Route::resource('clientes','ClienteController');
-
-
-
-
-
-Route::get('/contac/ingresar', 'ContactoController@ingresar')->name('contacto.ingresarc');
-Route::put('/contac/ingresar', 'ContactoController@store');
-Route::get('/contac/{contacto}','ContactoController@show')->name('contacto.ver');
-Route::get('/contac/editar/{contacto}', 'ContactoController@actualizar')->name('contacto.actualizar');
-Route::put('/contac/editar/{contacto}', 'ContactoController@update')->name('contacto.update');
 
 // -------------- RUTAS REPORTES ----------------
 Route::get('/reporteventas', 'SalidaController@ObtenerTotalVentasAnioActual');

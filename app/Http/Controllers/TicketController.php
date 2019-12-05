@@ -73,11 +73,11 @@ class TicketController extends Controller
         $ticket->arrendamiento = $request->input('arrendamiento');
         $ticket->reparacionfc = $request->input('reparacionfc');
         $ticket->reparacionpc = $request->input('reparacionpc');
+        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $maquina = DB::table('maquinas')
         ->select('maquinas.id')
         ->where('maquinas.serie','=',$request->input('serie'))
         ->get();
-        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $ticket->maquina_id = $maquina[0]->id;
         $ticket->save();
 
@@ -159,11 +159,11 @@ class TicketController extends Controller
         $ticket->arrendamiento = $request->input('arrendamiento');
         $ticket->reparacionfc = $request->input('reparacionfc');
         $ticket->reparacionpc = $request->input('reparacionpc');
+        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $maquina = DB::table('maquinas')
         ->select('maquinas.id')
         ->where('maquinas.serie','=',$request->input('serie'))
         ->get();
-        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $ticket->maquina_id = $maquina[0]->id;
         $ticket->save();
 
