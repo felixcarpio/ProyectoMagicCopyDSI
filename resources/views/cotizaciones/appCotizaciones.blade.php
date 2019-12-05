@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/css/slick.css">
   <link rel="stylesheet" href="/css/sweetalert2.min.css">
   <link rel="stylesheet" href="/css/slick-theme.css">
-
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 </head>
 <body>
 
@@ -39,7 +39,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav nav-fill w-100">
       <li class="nav-item dropdown">
         <img src="/images/cart.jpeg" class="nav-link dropdown-toggle img-fluid" height="70px"
         width="70px" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
@@ -63,25 +63,22 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Papeleria</a>
+          <a class="nav-link" href="{{ route('reserva.categoria.mostrar.unica', 1) }}">Papeleria</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Cuadernos</a>
+          <a class="nav-link" href="{{ route('reserva.categoria.mostrar.unica', 2) }}">Articulos de Fiesta</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Utiles Escolares</a>
+          <a class="nav-link" href="{{ route('reserva.categoria.mostrar.unica', 3) }}">Utiles Escolares</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Manualidades</a>
+          <a class="nav-link" href="{{ route('reserva.categoria.mostrar.unica', 4) }}">Fotocopias</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Lapices y Lapiceros</a>
+          <a class="nav-link" href="{{ route('reserva.categoria.mostrar.unica', 5) }}">Ploteos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Articulos de Oficina</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Varios</a>
+          <a class="nav-link" href="{{ route('reserva.categoria.mostrar.unica', 6) }}">Varios</a>
         </li>
 
       </ul>
@@ -153,6 +150,7 @@ aria-expanded="false"></img>
 <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}" > </script>
 <script src="{{ asset('js/popper.min.js') }}"> </script>
 <script src="{{ asset('js/bootstrap-4.3.1.min.js') }}"></script>
+<script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
 </body>

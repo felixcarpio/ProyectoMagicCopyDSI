@@ -15,6 +15,7 @@ class AddFieldsToProductoReserva extends Migration
     {
       Schema::table('producto_reserva', function ($table) {
         $table->integer('cantidad_ordenada')->nullable(True);
+        $table->float('sub_total')->nullable(True);
       });
     }
 

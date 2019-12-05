@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  @auth
+  {{-- @auth --}}
 
 <!-- Start Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -51,7 +51,7 @@
 
 
 
-      <a href="#" class="btn btn-success ingresar" >
+      <a href="/crearcotizacion" class="btn btn-success ingresar" >
         Ingresar Cotizacion
       </a>
       <a href="/" class="btn btn-info"> Regresar </a>
@@ -111,6 +111,6 @@
   <script src="js/cotizaciones.js"></script>]
 @endsection
 
- @endauth 
+ {{-- @endauth  --}}
 
 @endsection

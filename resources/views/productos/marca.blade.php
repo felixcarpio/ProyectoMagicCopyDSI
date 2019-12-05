@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/producto.css">
 @endsection
 @section('content')
-  @auth
+  {{-- @auth --}}
     <div class="container">
       <br>
       <h1 class="principal"> Marcas </h1>
@@ -147,5 +147,5 @@
 @section('script')
   <script src="js/actualizarMarca.js"></script>
 @endsection
-@endauth
+{{-- @endauth --}}
 @endsection

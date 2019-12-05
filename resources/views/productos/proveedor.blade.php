@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  @auth
+  {{-- @auth --}}
 
     <div class="container">
       <br>
@@ -179,6 +179,6 @@
   <script src="js/actualizarProveedor.js"></script>
 @endsection
 
-@endauth
+{{-- @endauth --}}
 
 @endsection

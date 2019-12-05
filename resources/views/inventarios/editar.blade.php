@@ -162,6 +162,7 @@ Actualizar Pedido
 
 <script src="{{ asset('js/jquery-1.12.4.js') }}"></script>
 <script src="{{ asset('js/jquery-ui.js') }}"></script>
+<script src="{{ asset('js/conf-datepicker.js') }}"></script>
 <script>
     $(function() {
         $(".datepicker").datepicker({

@@ -19,6 +19,7 @@ class CreateSalidasTable extends Migration
             $table->foreign('tipo_id')->references('id')->on('tipos')->onDelete('cascade');
             $table->date('fecha_emision');
             $table->double('total', 8, 2);
+            $table->double('total_iva', 8, 2)->nullable(True);
             $table->double('costo')->nullable(True);
             $table->string('comentario',1000)->nullable(True);
             $table->string('correlativo_factura')->nullable(True);
