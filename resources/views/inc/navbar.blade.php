@@ -33,7 +33,7 @@
                   <a class="nav-link" href="/reservas"> <span style="color:black"> Reservas </span> </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/reportes"> <span style="color:black"> Reportes </span> </a>
+                  <a class="nav-link" href="/reporteventas"> <span style="color:black"> Reportes </span> </a>
                 </li>
               </ul>
             @endauth

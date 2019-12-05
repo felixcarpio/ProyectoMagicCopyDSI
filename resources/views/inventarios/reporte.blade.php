@@ -15,7 +15,7 @@
     <th width="100px" scope="col" class="colorth" align="center">Producto</th>
     <th width="100px" scope="col" class="colorth" align="center">Cantidad</th>
     <th width="150px" scope="col" class="colorth" align="center">Costo</th>
-    <th width="150px" scope="col" class="colorth" align="center">Existencias/th>
+    <th width="150px" scope="col" class="colorth" align="center">Existencias</th>
   </tr>
 </thead>
 <tbody id="tabla">
@@ -34,6 +34,6 @@
 <h6>No existen datos de inventario</h6>
 @endif
 </tbody>
-</table>
+</table> 
 </body>
 </html>
