@@ -13,9 +13,10 @@
 <div class="container">
     <h3>Agregar Piezas</h3><br>
     <br>
-    <form method="POST" action="{{route('piezas.store')}}">
+    <form method="POST" action="{{action('PiezaController@store')}}">
         @csrf
         <section>
+        <input class="ocultar" type="text" name="idTicket" id="idTicket">
             <div class="panel panel-header"></div>
             <div class="panel panel-footer">
                 <table class="table table-bordered">
@@ -58,6 +59,11 @@
     </form><br>
 </div>
 @section('script')
+<script>
+        var url = window.location.href.split('/');
+        console.log(url[5]);
+        const inputId = document.getElementById("idTicket").value = url[5]
+        </script>
 <script type="text/javascript">
     $('tbody').delegate('.precio_venta, .cantidad', 'keyup',function(){
         var tr=$(this).parent().parent();

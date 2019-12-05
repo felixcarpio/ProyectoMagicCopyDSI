@@ -33,7 +33,7 @@ Ingresar Cliente
                 <label class="col-form-label">NIT: <span class="aclaracion"> Digitar los dígitos con guiones </span></label>
                 <input type="text" name="nit" pattern="[0-9]{3}-[0-9]{6}-[0-9]{3}-[0-9]{1}" class="form-control" placeholder="999-999999-99-9">
                 <label class="col-form-label">Registro:  <span class="aclaracion"> Digitar los dígitos con guiones </span> </label>
-                <input type="text" name="registro" class="form-control"  pattern="[0-9]{8}" placeholder="Ingrese el numero de registro de la empresa">
+                <input type="number" name="registro" class="form-control"  placeholder="Ingrese el numero de registro de la empresa">
                 <label class="col-form-label">Telefono: <span class="aclaracion"> Digitar los dígitos sin guiones </span> <span style="color:red">*</span></label>
                 <input type="text" name="telefono" pattern="[0-9]{8}" class="form-control"  placeholder="99999999">
                 <label class="col-form-label">Telefono: <span class="aclaracion"> Digitar los dígitos sin guiones </span>  </label>

@@ -25,7 +25,6 @@ class PiezaController extends Controller
      */
     public function create(Ticket $ticket)
     {
-
         return view('piezas.agregarPieza');
     }
 
@@ -38,7 +37,7 @@ class PiezaController extends Controller
     public function store(Request $request, Ticket $ticket)
     {
         //
-        $lastid = $ticket->id;
+        $lastid = $request->idTicket;
         if(count($request->nombre) > 0){
             foreach($request->nombre as $item => $v){
                 $data=array(
@@ -75,6 +74,7 @@ class PiezaController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
