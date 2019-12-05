@@ -7,7 +7,7 @@
 @section('content')
 @auth
 <div class="form-group">
-  <label class="col-form-label">Seleccione el reporte que desea obtener <span style="color:red">*</span> </label>
+  <label class="col-form-label">Seleccione el reporte que desea obtener</label>
   <select class="custom-select" name="tipoReporte" id="tipoReporte">
     <option value="Venta"> Venta </option>
     <option selected value="Inventario"> Inventario </option>
