@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Rol;
+use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Models\Permission;
 use Illuminate\Http\Request;
 use Session;
 class RolController extends Controller
@@ -14,8 +15,8 @@ class RolController extends Controller
      */
     public function index()
     {
-        $Rol = Rol::all();
-        return view('roles.index',compact('Rol'));
+        $roles = Role::all();
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -25,7 +26,8 @@ class RolController extends Controller
      */
     public function create()
     {
-        //
+        $permisos = Permission::orderBy('slug')->get();
+        return view('roles.create_rol',compact('permisos'));
     }
 
     /**
@@ -36,17 +38,9 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-          'nombre' => 'required',
-          'descripcion' => 'required'
-        ]);
-
-        $Rol = new Rol;
-        $Rol->nombre = $request->nombre;
-        $Rol->descripcion = $request->descripcion;
-        $Rol->save();
-
-        return redirect()->route('roles.index')->with('success','El Rol se ingresó correctamente');
+        $rol = Role::create($request->all());
+        $rol->permissions()->sync($request->get('permission'));
+        return redirect()->route('roles.index')->with('success','Rol añadido con exito');
     }
 
     /**
@@ -58,6 +52,13 @@ class RolController extends Controller
     public function show($id)
     {
         //
+        $rol = Role::find($id);
+        $permisos = Permission::orderBy('slug')->get();
+        $slugs=[];
+        foreach($rol->permissions->toArray() as $permiso){
+            $slugs[] = $permiso['slug'];
+        }
+        return view('roles.show_rol',compact('rol','permisos','slugs'));
     }
 
     /**
@@ -69,6 +70,13 @@ class RolController extends Controller
     public function edit($id)
     {
         //
+        $rol = Role::find($id);
+        $permisos = Permission::orderBy('slug')->get();
+        $slugs = [];
+        foreach($rol->permissions->toArray() as $permiso){
+            $slugs[] = $permiso['slug'];
+        }
+        return view('roles.edit_rol',compact('rol','permisos','slugs'));
     }
 
     /**
@@ -80,16 +88,10 @@ class RolController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-          'nombre' => 'required',
-          'descripcion' => 'required'
-        ]);
-
-        $rol = Rol::find($id);
-        $rol->nombre = $request->nombre;
-        $rol->descripcion = $request->descripcion;
-        $rol->save();
-        return redirect('roles')->with('success','El Rol se actualizó correctamente');
+        $rol = Role::find($id);
+        $rol->update($request->all());
+        $rol->permissions()->sync($request->get('permission'));
+        return redirect()->route('roles.index')->with('success','Rol modificado con exito');
     }
 
     /**
@@ -100,9 +102,12 @@ class RolController extends Controller
      */
     public function destroy($id)
     {
-        $rol = Rol::find($id);
-        $rol->delete();
-
-        return redirect('roles')->with('success','Rol Eliminado');
+        $rol = Role::find($id);
+        if($rol->id != 1 && $rol->id != 2 ){
+            $rol->delete();
+            return back()->with('success','Rol Eliminado con exito');  
+        }else{
+            return redirect()->route('roles.index')->with('danger','Este rol no esta disponible');
+        }
     }
 }

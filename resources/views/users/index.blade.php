@@ -94,7 +94,7 @@
                 <select class="custom-select" name="roles_id">
                   <option selected="">Opciones</option>
                   @foreach ($roles as $key => $rol)
-                    <option value="{{$rol->id}}">{{$rol->nombre}}</option>
+                    <option value="{{$rol->id}}">{{$rol->name}}</option>
                   @endforeach
                 </select>
               </div>
@@ -183,7 +183,7 @@
                 <select class="custom-select" id="roles_id" name="roles_id">
                   <option selected="">Opciones</option>
                   @foreach ($roles as $key => $rol)
-                    <option value="{{$rol->id}}">{{$rol->nombre}}</option>
+                    <option value="{{$rol->id}}">{{$rol->name}}</option>
                   @endforeach
                 </select>
               </div>
@@ -255,7 +255,6 @@
             <th scope="col">Email</th>
             <th scope="col">Dirección</th>
             <th scope="col">Teléfono</th>
-            <th scope="col">Rol</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -269,11 +268,7 @@
               <td>{{$users->email}}</td>
               <td>{{$users->direccion_usuario}}</td>
               <td>{{$users->telefono_usuario}}</td>
-              @foreach ($roles as $key => $rol)
-                @if($users->roles_id == $rol->id)
-                  <td>{{$rol->nombre}}</td>
-                @endif
-              @endforeach
+              
               <td>
                 <a href="#" class="edit actualizar"><i class="fas fa-edit"></i></a>
                 <a href="#" class="delete borrar"><i class="fas fa-trash-alt"></i></a>

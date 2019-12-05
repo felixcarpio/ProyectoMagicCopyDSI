@@ -27,7 +27,7 @@ new Chart(document.getElementById("bar-chart"), {
       legend: { display: false },
       title: {
         display: true,
-        text: 'Total de Ventas en el Año Actual'
+        text: 'Total de Ventas en el Año'
       }
     }
 });

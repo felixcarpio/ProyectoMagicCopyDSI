@@ -9,6 +9,7 @@ use App\Ticket;
 use App\Categoria;
 use App\Cliente;
 use Carbon\Carbon;
+use PDF;
 
 class TicketController extends Controller
 {
@@ -72,11 +73,11 @@ class TicketController extends Controller
         $ticket->arrendamiento = $request->input('arrendamiento');
         $ticket->reparacionfc = $request->input('reparacionfc');
         $ticket->reparacionpc = $request->input('reparacionpc');
+        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $maquina = DB::table('maquinas')
         ->select('maquinas.id')
         ->where('maquinas.serie','=',$request->input('serie'))
         ->get();
-        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $ticket->maquina_id = $maquina[0]->id;
         $ticket->save();
 
@@ -91,7 +92,20 @@ class TicketController extends Controller
      */
     public function show($id)
     {
-        //
+        $ticketPdf = DB::table('tickets')
+        ->join('maquinas', 'tickets.maquina_id', 'maquinas.id')
+        ->join('categorias', 'categorias.id', 'maquinas.categoria_id')
+        ->join('cliente_maquina', 'cliente_maquina.maquina_id', 'maquinas.id')
+        ->join('clientes', 'clientes.id', 'cliente_maquina.cliente_id')
+        ->select('tickets.fecha_inicio', 'tickets.total', 'tickets.comentario', 'clientes.nombre AS nom', 
+        'clientes.apellido', 'clientes.telefono', 'clientes.nit', 
+        'clientes.direccion', 'clientes.correo', 'clientes.dui', 'clientes.nombre_empresa AS empresa',
+        'categorias.nombre AS cat', 'maquinas.serie', 'maquinas.marca', 'maquinas.modelo',
+        'maquinas.contador')
+        ->where('tickets.id',$id)
+        ->get()->toArray();
+
+        return view('tickets.show', compact('ticketPdf'));
     }
 
     /**
@@ -145,11 +159,11 @@ class TicketController extends Controller
         $ticket->arrendamiento = $request->input('arrendamiento');
         $ticket->reparacionfc = $request->input('reparacionfc');
         $ticket->reparacionpc = $request->input('reparacionpc');
+        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $maquina = DB::table('maquinas')
         ->select('maquinas.id')
         ->where('maquinas.serie','=',$request->input('serie'))
         ->get();
-        $ticket->total = $ticket->arrendamiento + $ticket->reparacionpc + $ticket->reparacionfc;
         $ticket->maquina_id = $maquina[0]->id;
         $ticket->save();
 
@@ -167,4 +181,25 @@ class TicketController extends Controller
     {
         //
     }
+
+    public function pdf($id)
+    {
+        $ticketPdf = DB::table('tickets')
+        ->join('maquinas', 'tickets.maquina_id', 'maquinas.id')
+        ->join('categorias', 'categorias.id', 'maquinas.categoria_id')
+        ->join('cliente_maquina', 'cliente_maquina.maquina_id', 'maquinas.id')
+        ->join('clientes', 'clientes.id', 'cliente_maquina.cliente_id')
+        ->select('tickets.fecha_inicio', 'tickets.total', 'clientes.nombre AS nom', 'clientes.apellido', 'clientes.telefono', 
+        'clientes.direccion', 'categorias.nombre AS cat', 'maquinas.serie', 'maquinas.marca', 'maquinas.modelo',
+        'maquinas.contador')
+        ->where('tickets.id',$id)
+        ->get()->toArray();
+
+
+        $pdf = PDF::loadView('tickets.pdf', compact('ticketPdf'));
+
+        return $pdf->download('ticket-'. $id . '.pdf');
+    }
+
+    
 }

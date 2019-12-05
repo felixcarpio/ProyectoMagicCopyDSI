@@ -17,25 +17,8 @@ Inventario
 @section('content')
 @auth
   <div class="container">
-    <h1 class="titulo"> Inventario </h1>
+    <h1 class="titulo"> Inventario de {{$nombre}} </h1>
     <br>
-    @if(count($errors) > 0)
-
-      <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-            <li>{{$error}}</li>
-          @endforeach
-        </ul>
-      </div>
-    @endif
-
-    @if (\Session::has('success'))
-      <div class="alert alert-success">
-        <p>{{ \Session::get('success') }}</p>
-      </div>
-    @endif
-
     <a href="/verpedidos" class="btn btn-success ingresar">
      Pedidos
     </a>
@@ -56,13 +39,33 @@ Inventario
     <br>
     <br>
 
-    <form method="post">
+    <form method="post" action="{{ action('InventarioController@inventarioDelProducto') }}">
       {{ csrf_field() }}
 
+      <div class="one">
+      <label>Seleccione el Producto</label>
+      <br>
+      <select class="custom-select" name="producto" id="selectProductos">
+        <option disabled selected> Lista de Productos</option>
+        @if($productos)
+          @foreach ($productos as $producto)
+            <option> {{ $producto->nombre }} </option>
+          @endforeach
+        @else
+          <option>No existen Productos</option>
+        @endif
+      </select>
+      </div>
+      <br><br>
+      <div class="two">
+      <button type="submit" class="btn btn-success" id="btnProductos">Obtener Inventario</button>
+      </div>
+      <br><br>
       <table id="datatable" class="table table-light">
 
         <thead class="table-dark">
           <tr align="center"> 
+            <th scope="col" class="colorth ocultar" align="center">Fecha</th>
             <th scope="col" class="colorth" align="center">Fecha</th>
             <th scope="col" class="colorth" align="center">Producto</th>
             <th scope="col" class="colorth" align="center">Cantidad</th>
@@ -75,6 +78,7 @@ Inventario
           @if($inventario)
           @foreach($inventario as $clave => $valor)
           <tr>
+          <td align="center" class="ocultar">{{ date('d/m/Y h:i:s', strtotime($inventario[$clave]->fechaCreacion)) }}</td>
           <td align="center">{{ date('d/m/Y', strtotime($inventario[$clave]->fecha)) }}</td>
           <td align="center">{{$inventario[$clave]->nombre}}</td>
           <td align="center"> <label class="cantidad{{$clave}}">{{$inventario[$clave]->cantidad}}</label> </td>
@@ -82,7 +86,6 @@ Inventario
           <td align="center"> <label class="costo{{$clave}}">{{$inventario[$clave]->costo}}</label> </td>
           <td align="center"> <label class="label{{$clave}} ">{{ number_format($inventario[$clave]->existencias * $inventario[$clave]->costo, 2) }}</label> </td>
         </tr>
-
       @endforeach
     @else
     <h6>No existen datos de inventario</h6>

@@ -19,7 +19,7 @@
             <a href="{{route('tickets.create')}}" class="btn btn-success ingresar">
                 Ingresar Ticket
             </a>
-            <a href="/" class="btn btn-info btnposi">Regresar</a>
+            <a href="/home" class="btn btn-info btnposi">Regresar</a>
             <br><br>
         </div>
         <br>
@@ -61,6 +61,9 @@
                         <td class="ocultar">{{$ticket->comentario}}</td>    
                         <td>
                             <a href="{{route('tickets.edit', $ticket->id)}}"><i class="fas fa-edit"></i></a>
+                            <a href="{{route('piezas.crear', $ticket->id)}}"><i class="fas fa-toolbox"></i></a>
+                            <a href="{{route('tickets.pdf', $ticket->id)}}"><i class="detallepdf fas fa-file-pdf"></i></a>
+                            <a href="{{route('tickets.show',$ticket->id)}}" class="detalle view"><i class="fas fa-eye"></i></a>
                             <a href=""><i class="fas fa-toolbox"></i></a>
                         </td>
                     </tr>

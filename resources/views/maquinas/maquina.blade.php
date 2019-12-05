@@ -54,7 +54,7 @@
                       <input type="text" name="modelo"  class="form-control" placeholder="Ingrese el modelo de la máquina">
 
                     <label>Contador <span style="color:red">*</span></label>
-                      <input type="number" max="9999" min='1' name="contador"  class="form-control" placeholder="Ingrese el contador de la máquina">
+                      <input type="number" max="999999999" min='1' name="contador"  class="form-control" placeholder="Ingrese el contador de la máquina">
                     
                     <label>Serie <span style="color:red">*</span></label>
                       <input type="text" name="serie"  class="form-control" placeholder="Ingrese la serie de la máquina">
@@ -94,7 +94,9 @@
           <option disabled selected>Lista de Clientes</option>
           @if($clientes)
             @foreach ($clientes as $cliente)
-              <option value="{{ $cliente->id }}"> {{ $cliente->nombre }} </option>
+              <option value="{{ $cliente->id }}"> {{ $cliente->nombre }} 
+              
+              </option>
             @endforeach
           @else
             <option>No existen Clientes</option>
@@ -102,7 +104,7 @@
         </select>
 
                       <label>Categoría <span style="color:red">*</span></label>
-                      <select class="custom-select" name="categoria_id" id="categori_id[]">
+                      <select class="custom-select" name="categoria_id" id="categoria_id[]">
           <option disabled selected>Lista de Categorías</option>
           @if($categorias)
             @foreach ($categorias as $categoria)
@@ -119,7 +121,7 @@
                       <input type="text" name="modelo" id="modelo" class="form-control" placeholder="Ingrese el modelo de la máquina">
 
                     <label>Contador <span style="color:red">*</span></label>
-                      <input type="number" max="9999" min='1' name="contador" id="contador" class="form-control" placeholder="Ingrese el contador de la máquina">
+                      <input type="number" max="999999999" min='1' name="contador" id="contador" class="form-control" placeholder="Ingrese el contador de la máquina">
                     
                     <label>Serie <span style="color:red">*</span></label>
                       <input type="text" name="serie" id="serie" class="form-control" placeholder="Ingrese la serie de la máquina">
@@ -149,7 +151,7 @@
           </button>
 
 
-    <a href="/" class="btn btn-info btnposi"> Regresar </a>
+    <a href="/home" class="btn btn-info btnposi"> Regresar </a>
 
     <br><br>
     <a href="/categoria" class="btn btn-success btn-recepcion" href="">
@@ -201,6 +203,34 @@
 @section('script')
 <script src="js/maquina.js"></script>
 <script src="js/buscar.js"></script>
+
+<script language="javascript">    
+    var tbl = document.getElementById("datatable");
+    if (tbl != null) {
+        for (var i = 0; i < tbl.rows.length; i++)
+            tbl.rows[i].onclick = function () { getval(this);};
+
+    }
+    function getval(cel) {
+        cel1 = cel.cells[1];
+        var sel = document.getElementById('cliente_id[]');
+        for (var opt, j = 1; opt = sel[j]; j++) {
+            if (opt.innerHTML.trim() == cel1.innerHTML.trim()) {
+                sel.selectedIndex = j;
+                break;
+            } 
+        }
+        cel2 = cel.cells[2];
+        var sel = document.getElementById('categoria_id[]');
+        for (var opt, j = 1; opt = sel[j]; j++) {
+            if (opt.innerHTML.trim() == cel2.innerHTML.trim()) {
+                sel.selectedIndex = j;
+                break;
+            } 
+        }
+    }
+</script>
+
 @endsection
 @endauth
 @endsection
