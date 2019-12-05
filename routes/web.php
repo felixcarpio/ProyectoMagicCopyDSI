@@ -136,4 +136,7 @@ Route::get('/reportes', function () {
   return view('reportes');
 });
 
+Route::resource('/imagenes_evento','ImagenEventoController');
+
 Route::get('/ticketPDF/{id}', 'TicketController@pdf')->name('tickets.pdf');
+
