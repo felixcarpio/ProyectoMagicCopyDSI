@@ -12,8 +12,8 @@
 @section('content')
 <div class="container">
     <h3>Agregar Piezas</h3><br>
-    <form action="">
-        @method('PUT')
+    <br>
+    <form method="POST" action="{{route('piezas.store')}}">
         @csrf
         <section>
             <div class="panel panel-header"></div>
@@ -54,7 +54,7 @@
         </section>
         <br>
         <button type="submit" class="btn btn-success guardar">Agregar Piezas</button>
-        <a href="#" class="btn btn-danger">Cancelar</a>
+        <a href="{{route('tickets.index')}}" class="btn btn-danger">Cancelar</a>
     </form><br>
 </div>
 @section('script')
@@ -83,7 +83,7 @@
         '<td><input type="number" name="precio_unitario[]" class="form-control precio_unitario" required="" min="0.01" step="0.01" placeholder="0.00"></td>'+
         '<td><input type="number" name="precio_venta[]" class="form-control precio_venta" required="" min="0.01" step="0.01" placeholder="0.00"></td>'+
         '<td><input type="number" name="cantidad[]" class="form-control cantidad" required="" min="1" placeholder="0"></td>'+
-        '<td><input type="number" name="subtotal[]" class="form-control subtotal" required="" min="0.01"></td>'+
+        '<td><input type="number" name="subtotal[]" class="form-control subtotal" required="" "></td>'+
         '<td class="remover"><a href="#" class="remove"><i class="fas fa-minus-circle"></i></a></td>'
         '</tr>';
         $('tbody').append(tr);

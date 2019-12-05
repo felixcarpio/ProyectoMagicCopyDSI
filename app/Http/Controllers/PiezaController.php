@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Pieza;
+use App\Ticket;
 use Illuminate\Http\Request;
 
 class PiezaController extends Controller
@@ -21,9 +23,10 @@ class PiezaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Ticket $ticket)
     {
-        //
+
+        return view('piezas.agregarPieza');
     }
 
     /**
@@ -32,9 +35,24 @@ class PiezaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Ticket $ticket)
     {
         //
+        $lastid = $ticket->id;
+        if(count($request->nombre) > 0){
+            foreach($request->nombre as $item => $v){
+                $data=array(
+                    'nombre' => $request->nombre[$item],
+                    'precio_unitario' => $request->precio_unitario[$item],
+                    'precio_venta' => $request->precio_venta[$item],
+                    'cantidad' => $request->cantidad[$item],
+                    'subtotal' => $request->subtotal[$item],
+                    'ticket_id' => $lastid
+                );
+                Pieza::insert($data);
+            }
+        }
+        return redirect()->route('tickets.index')->with('success','Las piezas se agregaron con éxito');
     }
 
     /**
