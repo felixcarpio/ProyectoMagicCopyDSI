@@ -29,11 +29,6 @@
             </div>
 
             <div class="form-group">
-              <label>Codigo*</label>
-              <input type="number" min="1" name="codigo" class="form-control" placeholder="Ingrese el codigo del producto">
-            </div>
-
-            <div class="form-group">
               <label>Descripcion</label>
               <input type="text" name="descripcion" class="form-control" placeholder="Ingrese descripcion del producto">
             </div>
@@ -116,11 +111,6 @@
           <div class="form-group">
             <label>Nombre del Producto</label>
             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el nombre del producto">
-          </div>
-
-          <div class="form-group">
-            <label>Codigo</label>
-            <input type="number" min="1" name="codigo" id="codigo" class="form-control" placeholder="Ingrese el codigo del producto">
           </div>
 
           <div class="form-group">
