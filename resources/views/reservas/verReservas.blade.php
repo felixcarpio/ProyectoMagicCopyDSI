@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  {{-- @auth --}}
+  @auth
 
 <!--Start Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -135,6 +135,6 @@
   <script src="js/reservas.js"></script>
 @endsection
 
-{{-- @endauth  --}}
+@endauth 
 
 @endsection

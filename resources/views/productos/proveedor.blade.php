@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  {{-- @auth --}}
+  @auth
 
     <div class="container">
       <br>
@@ -147,12 +147,6 @@
                 <th scope="col" class="colorth">Accion</th>
               </tr>
             </thead>
-            {{-- <tfoot>
-            <tr>
-            <th scope="col" class="colorth">ID</th>
-            <th scope="col" class="colorth">Nombre</th>
-          </tr>
-        </tfoot> --}}
         <tbody>
           @foreach ($proveedor as $proveedores)
             <tr>
@@ -181,6 +175,6 @@
   <script src="js/actualizarProveedor.js"></script>
 @endsection
 
-{{-- @endauth --}}
+@endauth
 
 @endsection
