@@ -9,7 +9,7 @@
 
 @endsection
 @section('content')
-  {{-- @auth  --}}
+  @auth 
     <div class="container">
       <br>
       <h1 class="principal"> Reserva # {{$reserva->codigo_reserva}} </h1>
@@ -53,6 +53,6 @@
         </div>
         <br><br>
       </div>
-    {{-- @endauth  --}}
+    @endauth 
 
   @endsection

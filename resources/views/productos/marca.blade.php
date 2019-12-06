@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/producto.css">
 @endsection
 @section('content')
-  {{-- @auth --}}
+  @auth
     <div class="container">
       <br>
       <h1 class="principal"> Marcas </h1>
@@ -93,12 +93,6 @@
                 <th scope="col" class="colorth">Accion</th>
               </tr>
             </thead>
-            {{-- <tfoot>
-            <tr>
-            <th scope="col" class="colorth">ID</th>
-            <th scope="col" class="colorth">Nombre</th>
-          </tr>
-        </tfoot> --}}
         <tbody>
           @foreach ($marca as $marcas)
             <tr>
@@ -149,5 +143,5 @@
 @section('script')
   <script src="js/actualizarMarca.js"></script>
 @endsection
-{{-- @endauth --}}
+@endauth
 @endsection
