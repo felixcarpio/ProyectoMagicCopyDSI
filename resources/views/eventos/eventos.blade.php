@@ -15,6 +15,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Ingresar Evento</h5>
+        <p><span style="color:red"> *</span> <span class="campoObligatorio">Campo obligatorio</span></p>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -24,7 +25,7 @@
           {{ csrf_field() }}
 
             <div class="form-group">
-              <label>Nombre del Evento*</label>
+              <label>Nombre del Evento<span style="color:red">*</span></label>
               <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre del evento">
             </div>
             
@@ -50,7 +51,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Actualizar Image </h5>
+        <h5 class="modal-title" id="exampleModalLabel">Actualizar Evento</h5>
+        <p><span style="color:red"> *</span> <span class="campoObligatorio">Campo obligatorio</span></p>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -60,7 +62,7 @@
           @method('PUT')
           @csrf
           <div class="form-group">
-            <label>Nombre del Evento</label>
+            <label>Nombre del Evento<span style="color:red"> *</span></label>
             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el nombre del evento">
           </div>
 
@@ -105,7 +107,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-danger">Si! Eliminar Evento</button>
+        <button type="submit" class="btn btn-danger">Eliminar Evento</button>
       </div>
     </form>
   </div>
