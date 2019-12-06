@@ -21,6 +21,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Ingresar Marca</h5>
+                  <p><span style="color:red"> *</span> <span class="campoObligatorio">Campo obligatorio</span></p>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -30,7 +31,7 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                      <label>Nombre de la Marca</label>
+                      <label>Nombre de la Marca<span style="color:red">*</span></label>
                       <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre de la marca">
                     </div>
                   </div>
@@ -51,6 +52,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">Actualizar Marca</h5>
+                  <p><span style="color:red"> *</span> <span class="campoObligatorio">Campo obligatorio</span></p>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

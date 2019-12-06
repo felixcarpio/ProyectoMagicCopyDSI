@@ -91,10 +91,10 @@
 
 
 
-      <button type="button" class="btn btn-success ingresar" data-toggle="modal" data-target="#exampleModal">
+      <a href="/libreria" class="btn btn-success" >
         Ingresar Reserva
-      </button>
-      <a href="#" class="btn btn-info"> Regresar </a>
+      </a>
+      <a href="/" class="btn btn-info"> Regresar </a>
       <br><br>
 
                 <table id="datatable" class="table table-striped">
