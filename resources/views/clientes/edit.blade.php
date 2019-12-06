@@ -28,7 +28,7 @@ Editar Cliente
             <label class="col-form-label">Giro de la empresa: </label>
             <input type="text" name="giro" class="form-control" placeholder="Ingrese el giro de la empresa" value="{{$cliente->giro}}">
             <label class="col-form-label">NIT:  <span class="aclaracion"> Digitar los dígitos con guiones </span> </label>
-            <input type="text" name="nit" pattern="[0-9]{3}-[0-9]{6}-[0-9]{3}-[0-9]{1}" class="form-control" placeholder="999-999999-99-9" value="{{$cliente->nit}}">
+            <input type="text" name="nit" pattern="[0-9]{3}-[0-9]{6}-[0-9]{3}-[0-9]{1}" class="form-control" placeholder="999-999999-999-9" value="{{$cliente->nit}}">
             <label class="col-form-label">Registro:  <span class="aclaracion"> Digitar los dígitos con guiones </span> </label>
             <input type="text" name="registro" pattern="[0-9]{8}" class="form-control" placeholder="Ingrese el numero de registro de la empresa" value="{{$cliente->registro}}">
             <label class="col-form-label">Telefono: <span class="aclaracion"> Digitar los dígitos sin guiones </span> <span style="color:red">*</span></label>
