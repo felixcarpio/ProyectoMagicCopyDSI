@@ -14,7 +14,8 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ingresar Producto</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Ingresar Producto</h5><br><br>
+        <p><span style="color:red"> *</span> <span class="campoObligatorio">Campo obligatorio</span></p>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -24,13 +25,8 @@
           {{ csrf_field() }}
 
             <div class="form-group">
-              <label>Nombre del Producto*</label>
+              <label>Nombre del Producto<span style="color:red">*</span></label>
               <input type="text" name="nombre" class="form-control" placeholder="Ingrese el nombre del producto">
-            </div>
-
-            <div class="form-group">
-              <label>Codigo*</label>
-              <input type="number" min="1" name="codigo" class="form-control" placeholder="Ingrese el codigo del producto">
             </div>
 
             <div class="form-group">
@@ -39,17 +35,17 @@
             </div>
 
             <div class="form-group">
-              <label>Precio*</label>
+              <label>Precio<span style="color:red">*</span></label>
               <input type="number" step="0.001" min="0" name="precio" class="form-control" placeholder="Ingrese el precio del producto">
             </div>
 
             <div class="form-group">
-              <label>Precio con Descuento*</label>
+              <label>Precio con Descuento</label>
               <input type="number" step="0.001" min="0" name="precioConDescuento" class="form-control" placeholder="Ingrese el precio con descuento">
             </div>
 
             <div class="form-group">
-              <label>Marca*</label>
+              <label>Marca<span style="color:red">*</span></label>
               <select name="marcas_id" class="form-control">
                 @foreach ($marcas as $marca)
                     <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
@@ -59,7 +55,7 @@
             </div>
 
             <div class="form-group">
-              <label>Categoria*</label>
+              <label>Categoria<span style="color:red">*</span></label>
               <select name="categorias_id" class="form-control">
                 @foreach ($categorias as $categoria)
                     <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
@@ -67,7 +63,7 @@
               </select>
             </div>
 
-            <label>Proveedor <br></label>
+            <label>Proveedor<span style="color:red">*</span><br></label>
             <div class="form-group scroll" >
 
 
@@ -105,6 +101,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Actualizar Producto</h5>
+        <p><span style="color:red"> *</span> <span class="campoObligatorio">Campo obligatorio</span></p>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -114,13 +111,8 @@
           @method('PUT')
           @csrf
           <div class="form-group">
-            <label>Nombre del Producto</label>
+            <label>Nombre del Producto<span style="color:red">*</span></label>
             <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el nombre del producto">
-          </div>
-
-          <div class="form-group">
-            <label>Codigo</label>
-            <input type="number" min="1" name="codigo" id="codigo" class="form-control" placeholder="Ingrese el codigo del producto">
           </div>
 
           <div class="form-group">
@@ -129,7 +121,7 @@
           </div>
 
           <div class="form-group">
-            <label>Precio</label>
+            <label>Precio<span style="color:red">*</span></label>
             <input type="number" step="0.01" min="0" name="precio" id="precio" class="form-control" placeholder="Ingrese el precio del producto">
           </div>
 
@@ -140,7 +132,7 @@
 
 
           <div class="form-group">
-            <label>Marca*</label>
+            <label>Marca<span style="color:red">*</span></label>
             <select name="marcas_id" id="marcas_id[]" class="form-control">
               @foreach ($marcas as $marca)
                   <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
@@ -149,7 +141,7 @@
           </div>
 
           <div class="form-group">
-            <label>Categoria*</label>
+            <label>Categoria<span style="color:red">*</span></label>
             <select name="categorias_id" id="categorias_id[]" class="form-control">
               @foreach ($categorias as $categoria)
                   <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
@@ -157,7 +149,7 @@
             </select>
           </div>
 
-          <label>Proveedor <br></label>
+          <label>Proveedor<span style="color:red">*</span><br></label>
 
           <div class="form-group scroll">
 

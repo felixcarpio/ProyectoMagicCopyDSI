@@ -51,7 +51,6 @@ class ProductoController extends Controller
     public function store(Request $request)
     {
       $this->validate($request,[
-        'codigo' => 'required|unique:productos,codigo',
         'nombre' => 'required',
         // 'descripcion' => 'required',
         'precio' => 'required',
@@ -60,6 +59,39 @@ class ProductoController extends Controller
         'marcas_id' => 'required',
         // 'imagen' => 'required',
       ]);
+
+      $ProductosNormales = DB::table('productos')
+      ->select('productos.codigo')
+      ->get();
+      $ProductosNormal = DB::table('productos')
+      ->select('productos.codigo')
+      ->get();
+
+      $codigoProducto = 100000;
+      $diferente = False;
+
+        while($diferente == False){
+          if ($codigoProducto == 100000) {
+            $diferente = True;
+          }
+          foreach ($ProductosNormales as $producto) {
+            while ($producto->codigo == $codigoProducto) {
+              $codigoC = mt_rand(0,9);
+              $codigo1 = mt_rand(0,9);
+              $codigo2 = mt_rand(0,9);
+              $codigo3 = mt_rand(0,9);
+              $codigo4 = mt_rand(0,9);
+              $codigo5 = mt_rand(0,9);
+              $codigoProducto = $codigoC."".$codigo1."".$codigo2."".$codigo3."".$codigo4."".$codigo5;
+              $diferente = True;
+            }
+          }
+          foreach ($ProductosNormal as $producto) {
+            if($producto->codigo == $codigoProducto) {
+              $diferente = False;
+            }
+          }
+        }
 
       //Manejo de imagenes
       if($request->hasFile('imagen')){
@@ -79,7 +111,7 @@ class ProductoController extends Controller
       }
       $articulo = new Producto;
       $proveedor = new Proveedor;
-      $articulo->codigo = $request->input('codigo');
+      $articulo->codigo = $codigoProducto;
       $articulo->nombre = $request->input('nombre');
       $articulo->descripcion = $request->input('descripcion');
       $articulo->precio = $request->input('precio');
@@ -141,15 +173,10 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
       $this->validate($request,[
-        'codigo' => "required|unique:productos,codigo,$id" ,
         'nombre' => 'required',
-        // 'descripcion' => 'required',
         'precio' => '|required|numeric',
-        // 'existencias' => '|required|numeric',
         'marcas_id' => 'required',
         'categorias_id' => 'required',
-        // 'proveedor_id' => 'required',
-      //  'imagen' => 'required',
       ]);
       if($request->hasFile('imagen')){
           $nombreDeArchivoConExt = $request->file('imagen')->getClientOriginalName();
@@ -164,7 +191,6 @@ class ProductoController extends Controller
       $articulo = Producto::find($id);
 
       $articulo->nombre = $request->input('nombre');
-      $articulo->codigo = $request->input('codigo');
       $articulo->descripcion = $request->input('descripcion');
       $articulo->precio = $request->input('precio');
       $articulo->precio_con_descuento = $request->input('precioConDescuento');
